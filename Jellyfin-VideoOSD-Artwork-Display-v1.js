@@ -23,7 +23,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "8" // stacking layer
+                zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -41,7 +41,7 @@
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 fallbackToLogo: true, // use logo as fallback if no clearart is available
-                zIndex: "7" // stacking layer
+                zIndex: "7" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -60,7 +60,7 @@
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 rotationSpeed: 15, // seconds for a full 360° rotation
                 spinningDisc: true, // true = disc rotates, false = static
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -77,7 +77,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "4" // stacking layer
+                zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -94,7 +94,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -111,7 +111,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "5" // stacking layer
+                zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -128,7 +128,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -145,7 +145,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -162,7 +162,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -179,7 +179,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -196,7 +196,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -213,7 +213,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -230,7 +230,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -247,7 +247,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -264,7 +264,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -281,7 +281,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -310,7 +310,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "8" // stacking layer
+                zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -328,7 +328,7 @@
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 fallbackToLogo: false, // use logo as fallback if no clearart is available
-                zIndex: "7" // stacking layer
+                zIndex: "7" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -347,7 +347,7 @@
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 rotationSpeed: 15, // seconds for a full 360° rotation
                 spinningDisc: true, // true = disc rotates, false = static
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -364,7 +364,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "4" // stacking layer
+                zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -381,7 +381,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "4" // stacking layer
+                zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -399,7 +399,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "4" // stacking layer
+                zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -416,7 +416,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -433,7 +433,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -450,7 +450,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "5" // stacking layer
+                zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -467,7 +467,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "5" // stacking layer
+                zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -484,7 +484,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -501,7 +501,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -518,7 +518,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -535,7 +535,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -552,7 +552,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -569,7 +569,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -586,7 +586,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -603,7 +603,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -620,7 +620,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -637,7 +637,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -654,7 +654,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -683,7 +683,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "8" // stacking layer
+                zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -701,7 +701,7 @@
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 fallbackToLogo: false, // use logo as fallback if no clearart is available
-                zIndex: "7" // stacking layer
+                zIndex: "7" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -720,7 +720,7 @@
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 rotationSpeed: 15, // seconds for a full 360° rotation
                 spinningDisc: true, // true = disc rotates, false = static
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -737,7 +737,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "4" // stacking layer
+                zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -754,7 +754,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "3" // stacking layer
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -771,7 +771,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "5" // stacking layer
+                zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -788,7 +788,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -805,7 +805,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -822,7 +822,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -839,7 +839,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -856,7 +856,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -873,7 +873,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -890,7 +890,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -907,7 +907,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -924,7 +924,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -941,7 +941,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                zIndex: "2" // stacking layer
+                zIndex: "2" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
