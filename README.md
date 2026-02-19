@@ -170,10 +170,8 @@ The following content types are not fully supported:
 - Trailers
 - Bonus or extra content
 
-Extras are treated by Jellyfin as standalone videos and cannot be reliably linked back to their parent movie.  
-In these cases, at most poster artwork may appear.
-
-Full artwork resolution only works if artwork is directly assigned to the stacked files themselves.
+Extras, Trailers, Bonus content (stacked sub videos) are treated by Jellyfin as standalone videos and cannot be reliably linked back to their parent movie. (have not find out yet)
+In these cases empty, at most poster artwork may appear, or when the artwork directly assigned to the stacked files themselves.
 
 ---
 
