@@ -21,9 +21,8 @@ Behavior on other operating systems, browsers, or Jellyfin versions is unknown a
 This script adds configurable artwork overlays to the Jellyfin Video OSD.  
 It displays logos, clearart, discs, posters, banners, thumbs, and multiple backdrops directly on top of the video player, using existing Jellyfin artwork and metadata.
 
-Originally, this script was designed as a single global overlay system.  
+Originally, this script was designed as a single global overlay system just for clearlogo.png on left top VideoOSD overlay.  
 During development, it became clear that a global approach was too limiting. The script was therefore split into independent profiles for **movies**, **episodes (from TV shows)**, and **videos**, allowing each media type to be configured entirely separately.
-
 This makes it possible to build completely different artwork layers per media type without compromises or shared constraints.
 
 ---
