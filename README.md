@@ -49,6 +49,7 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Banner
   - Thumb
   - Backdrop (main)
+  - Extended artwork types for TV shows Season & Episode + fallbacks
   - Additional backdrops (Backdrop #1 to #9)
 - Per-artwork configuration options:
   - Enable or disable each element individually
