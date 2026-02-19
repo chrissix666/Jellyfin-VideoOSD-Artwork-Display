@@ -15,6 +15,7 @@ Behavior on other operating systems, browsers, or Jellyfin versions is unknown a
 
 <img src="Screenshot.jpg" width="600">
 
+---
 This script adds configurable artwork overlays to the Jellyfin Video OSD.  
 It displays logos, clearart, discs, posters, banners, thumbs, and multiple backdrops directly on top of the video player, using existing Jellyfin artwork and metadata.
 
