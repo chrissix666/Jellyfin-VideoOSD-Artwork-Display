@@ -30,9 +30,7 @@ This makes it possible to build completely different artwork layers per media ty
 ## Overview
 
 Jellyfin VideoOSD Artwork Display is a client-side userscript that injects artwork elements into the Video OSD view.  
-It resolves artwork context-aware based on the currently playing item and its choosable hierarchy (episode → season → series, or file → parent → grandparent).
-
-Each media type (movie, episode, video) has its own configuration profile and state handling.
+It resolves artwork context-aware based on the currently playing item and its choosable hierarchy (episode → season → series, or file → parent → grandparent). Each media type (movie, episode, video) has its own configuration profile and state handling.
 
 ---
 
