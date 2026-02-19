@@ -1,4 +1,3 @@
----
 # Jellyfin VideoOSD Artwork Display
 ---
 Highly experimental. This took time to build, but not much technical coding know-how & lot of AI help.
