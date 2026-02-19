@@ -171,7 +171,7 @@ The following content types are not fully supported:
 - Bonus or extra content
 
 Extras, Trailers, Bonus content (stacked sub videos) are treated by Jellyfin as standalone videos and cannot be reliably linked back to their parent movie. (have not find out yet)
-In these cases empty, at most may fallback poster appear or the thumb generated in the jellyfin (Screen Grabber / Image Extractor), or when the artwork directly assigned to the stacked files themselves or same folder. Else empty.
+In these cases empty, at most may fallback poster appear or the thumb "videofile-poster" generated in the Jellyfin (Screen Grabber / Image Extractor), or when the artwork directly assigned to the stacked files themselves or same folder. Else empty.
 
 ---
 
