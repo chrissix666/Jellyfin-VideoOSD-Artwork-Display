@@ -13,7 +13,7 @@
             // Movie Logo configuration
             // ---------------------------
             logo: {
-                enabled: false, // true = show logo, false = hide logo
+                enabled: true, // true = show logo, false = hide logo
                 movieSourceMode: "default", // default | file | parent | grandparent
                 horizontal: "left", // "left" | "right" | "center"
                 vertical: "top", // "top" | "bottom" | "center"
@@ -40,7 +40,7 @@
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
-                fallbackToLogo: true, // use logo as fallback if no clearart is available
+                fallbackToLogo: false, // use logo as fallback if no clearart is available
                 zIndex: "7" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
@@ -101,7 +101,7 @@
             // Movie Banner configuration
             // ---------------------------
             banner: {
-                enabled: false, // true = show banner, false = hide banner
+                enabled: true, // true = show banner, false = hide banner
                 movieSourceMode: "default", // default | file | parent | grandparent
                 horizontal: "right", // "left" | "right" | "center"
                 vertical: "top", // "top" | "bottom" | "center"
@@ -335,7 +335,7 @@
             // Episode Disc configuration
             // ---------------------------
             disc: {
-                enabled: true, // true = show disc, false = hide disc
+                enabled: false, // true = show disc, false = hide disc
                 tvShowSourceMode: "default", // default | episode | season | series
                 horizontal: "left", // "left" | "right" | "center"
                 vertical: "bottom", // "top" | "bottom" | "center"
