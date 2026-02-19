@@ -149,7 +149,7 @@ If enabled, disc artwork can rotate while video playback is active.
 ## Visibility Behavior
 
 - Artwork is only visible when the Video OSD is visible
-- Automatically hides when leaving the video page
+- Automatically hides when leaving the video page (smooth fade)
 - Automatically resets on item change
 - Handles real fullscreen and browser fullscreen modes
 - Non-active media types are hidden when switching content
