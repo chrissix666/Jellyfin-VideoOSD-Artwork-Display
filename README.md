@@ -67,20 +67,6 @@ Each media type (movie, episode, video) has its own configuration profile and st
 - Non-active media type layers are hidden automatically
 - Client-side only, no server-side changes required
 
----
-
-## UPDATE v1 (Initial Release)
-
-- Initial public release
-- Full support for Movie, Episode, and Video profiles
-- Independent configuration for each media type
-- Context-aware artwork resolution using Jellyfin metadata
-- Optional disc rotation synced to video playback
-- Clearart fallback logic with optional logo replacement
-- Support for multiple backdrop slots (Backdrop #1–#9)
-- Automatic visibility handling based on OSD state
-- Fullscreen-aware positioning adjustments
-- Z-index fixes for OSD compatibility
 
 ---
 
