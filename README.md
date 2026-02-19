@@ -1,5 +1,5 @@
 # Jellyfin VideoOSD Artwork Display
----
+
 Highly experimental. This took time to build, but not much technical coding know-how & lot of AI help.
 @HighImKevin and @BobHasNoSoul from the Jellyfin community helped shape the initial code base and provided several fixes. Many thanks to both of them.
 
