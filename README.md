@@ -108,7 +108,7 @@ For each artwork element you can define:
 - Screen offsets (vw and vh based)
 - Maximum height
 - Optional maximum width
-- Z-index layer
+- Z-index layer (use 1-9)
 - Optional fallback behavior
 
 This allows highly granular control over which artwork is shown and where it appears.
