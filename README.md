@@ -44,8 +44,8 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Disc (static or rotating)
   - Poster
   - Banner
-  - Thumb
-  - Backdrop (main)
+  - Thumb (aka Landscape)
+  - Backdrop (main) (aka Fanart)
   - Extended artwork types for TV shows Season & Episode + fallbacks
   - Additional backdrops (Backdrop #1 to #9)
 - Per-artwork configuration options:
