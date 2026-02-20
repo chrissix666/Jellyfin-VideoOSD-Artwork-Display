@@ -56,7 +56,7 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Screen offsets using viewport units (vw / vh)
   - Maximum height and optional maximum width
   - Z-index layer control (1-9 choosable layers)
-  - Optional fallback logic (for example clearart falling back to logo)
+  - Optional fallback logic (for example clearart falling back to logo or Season to TV show)
 - Context-aware artwork resolution using Jellyfin metadata
 - Automatic artwork switching on item change
 - Automatic hiding and showing based on OSD visibility
