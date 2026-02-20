@@ -50,7 +50,7 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Additional backdrops (Backdrop #1 to #9)
 - Per-artwork configuration options:
   - Enable or disable each element individually
-  - Source selection (file, parent, grandparent, episode, season, series)
+  - Source selection (file, parent, grandparent, episode, season, series; default = iterates through the entire fallback chain)
   - Horizontal alignment (left, center, right)
   - Vertical alignment (top, center, bottom)
   - Screen offsets using viewport units (vw / vh)
