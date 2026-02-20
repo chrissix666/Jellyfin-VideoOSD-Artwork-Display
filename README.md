@@ -18,9 +18,9 @@ Behavior on other operating systems, browsers, or Jellyfin versions is unknown a
 <img src="Screenshot.jpg" width="600">
 
 ---
-This script adds configurable artwork overlays to the Jellyfin Video OSD. It displays logos, clearart, discs, posters, banners, thumbs, and multiple backdrops directly on top of the video player, using existing Jellyfin artwork and metadata.
+This script adds configurable artwork overlays to the Jellyfin video OSD and displays logos, clearart, discs, posters, banners, thumbnails, and multiple backdrops directly over the video player using existing Jellyfin artwork and metadata. 
 
-Originally, this script was designed as a single global overlay system just for clearlogo.png on left top VideoOSD overlay. During development, it became clear that a global approach was too limiting. The script was therefore split into independent profiles for **movies**, **episodes (from TV shows)**, and **videos**, allowing each media type to be configured entirely separately. This makes it possible to build completely different artwork layers per media type without compromises or shared constraints. This script has now become a complete matrix for all libraries, all artworks & subartworks, with fallbacks, and all positions—fully individual and independent. The configuration is an artwork overlay creator with almost full freedom.
+It originally started as a single global overlay limited to a `clearlogo.png` in the top-left corner of the Video OSD, but during development this approach proved too restrictive. The system was therefore redesigned into independent profiles for movies, episodes (TV shows), and videos. Each media type can now be configured entirely on its own, allowing completely different artwork layers without shared limitations. What began as a simple overlay has evolved into a modular artwork overlay system covering all libraries, all artwork and sub-artwork types, including fallbacks and free positioning, with the configuration effectively acting as an artwork overlay builder that offers near-total creative freedom.
 
 ---
 
