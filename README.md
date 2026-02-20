@@ -156,8 +156,7 @@ If enabled, disc artwork can rotate while video playback is active.
 ## Known Bugs and Issues
 
 OSD layering (Play Next)  
-The artwork overlays are successfully positioned behind elements part of videoOSD or can be visible during: trickplay thumbnails, skip buttons, and media info overlays.  
-During the "Play Next" action, the artwork currently remains still in the foreground.
+The artwork overlays are successfully positioned behind elements part of videoOSD or can be visible during: trickplay thumbnails, skip buttons, and media info overlays. However, during the "Play Next" action, the artwork currently remains still in the foreground.
 
 The "Play Next" event cannot be reliably triggered manually, which makes debugging difficult.  
 No stable DOM or state hook has been identified so far.
