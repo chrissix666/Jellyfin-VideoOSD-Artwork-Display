@@ -39,9 +39,9 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Videos
 - Fully configurable artwork layers per profile
 - Supported artwork types:
-  - Logo
-  - Clearart (with optional logo fallback)
-  - Disc (static or rotating)
+  - Logo (aka Clearlogo)
+  - Art (aka Clearart) - with optional logo fallback
+  - Disc (aka Discart) - static or rotating, stop rotate on pause
   - Poster
   - Banner
   - Thumb (aka Landscape)
