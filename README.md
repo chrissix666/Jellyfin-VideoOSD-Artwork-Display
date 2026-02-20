@@ -46,7 +46,7 @@ It resolves artwork context-aware based on the currently playing item and its ch
   - Banner
   - Thumb (aka Landscape)
   - Backdrop (main) (aka Fanart)
-  - Extended artwork types for TV shows Season & Episode + fallbacks
+  - Extended artwork types for TV shows Season & Episodes + fallbacks
   - Additional backdrops (Backdrop #1 to #9)
 - Per-artwork configuration options:
   - Enable or disable each element individually
