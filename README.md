@@ -16,6 +16,7 @@ Behavior on other operating systems, browsers, or Jellyfin versions is unknown a
 ---
 
 <img src="Screenshot.jpg" width="600">
+*Screenshot are only example showcase. It absolutely does not mean that everything should be displayed at the same time like stickers. Of course it looks best with just one layer, for example a clearlogo left top or clearart right bottom, and at most a second one added, such as discart or season poster.
 
 ---
 This script adds configurable artwork overlays to the Jellyfin video OSD and displays logos, clearart, discs, posters, banners, thumbnails, and multiple backdrops directly over the video player using existing Jellyfin artwork and metadata. 
