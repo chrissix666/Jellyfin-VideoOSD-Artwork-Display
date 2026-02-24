@@ -1583,6 +1583,8 @@
         .skinHeader { z-index: 10 !important; }
         .playerStats { z-index: 10 !important; }
         .sliderBubbleTrack { z-index: 10 !important; }
+        .upNextContainer { z-index: 10 !important; }
+        .upNextDialog { z-index: 10 !important; }
     `;
         document.head.appendChild(style);
     };
@@ -1608,3 +1610,4 @@
     updateArtwork();
     injectZIndexFixes();
 })();
+
