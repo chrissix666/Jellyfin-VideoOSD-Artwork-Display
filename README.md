@@ -79,9 +79,7 @@ It resolves artwork context-aware based on the currently playing item and its ch
 2. Add the script file:  
    `Jellyfin-VideoOSD-Artwork-Display-v1.js`
 
-3. Reload the Jellyfin web interface
-
-No server-side changes are required.
+3. Config to your needs, save & reload the Jellyfin web interface
 
 ---
 
