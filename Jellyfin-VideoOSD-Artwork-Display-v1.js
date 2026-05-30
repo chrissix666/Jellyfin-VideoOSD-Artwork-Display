@@ -19,10 +19,10 @@
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
-                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
                 zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
@@ -36,7 +36,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -54,7 +54,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "26vh", // maximum height of the disc (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -73,7 +73,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -90,7 +90,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -101,13 +101,13 @@
             // Movie Banner configuration
             // ---------------------------
             banner: {
-                enabled: true, // true = show banner, false = hide banner
+                enabled: false, // true = show banner, false = hide banner
                 movieSourceMode: "default", // default | file | parent | grandparent
                 horizontal: "right", // "left" | "right" | "center"
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -124,7 +124,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -141,7 +141,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -158,7 +158,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -175,7 +175,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -192,7 +192,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -209,7 +209,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -226,7 +226,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -243,7 +243,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -260,7 +260,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -277,7 +277,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -288,7 +288,7 @@
             // Movie Hide rules
             // ---------------------------
             hideLogoWhenClearartFallback: false, // hide logo when clearart uses fallback
-            hideLogoWhenClearartAvailable: false // hide logo when real clearart exists
+            hideLogoWhenClearartAvailable: true // hide logo when real clearart exists
         },
 
         // ==========================================================
@@ -306,10 +306,10 @@
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
-                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
                 zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
@@ -317,13 +317,13 @@
             // Episode Clearart configuration
             // ---------------------------
             clearart: {
-                enabled: true, // true = show clearart, false = hide clearart
+                enabled: false, // true = show clearart, false = hide clearart
                 tvShowSourceMode: "default", // default | episode | season | series
                 horizontal: "right", // "left" | "right" | "center"
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -335,13 +335,13 @@
             // Episode Disc configuration
             // ---------------------------
             disc: {
-                enabled: false, // true = show disc, false = hide disc
+                enabled: true, // true = show disc, false = hide disc
                 tvShowSourceMode: "default", // default | episode | season | series
                 horizontal: "left", // "left" | "right" | "center"
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "26vh", // maximum height of the disc (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -360,7 +360,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -371,13 +371,13 @@
             // Episode Poster TV show (Season)
             // ---------------------------
             posterTvShowSeason: {
-                enabled: true, // true = show season poster, false = hide
+                enabled: false, // true = show season poster, false = hide
                 seriesFallback: true, // true = fallback to series, false = no fallback
                 horizontal: "left", // "left" | "right" | "center"
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -395,7 +395,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -412,7 +412,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -429,7 +429,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -440,13 +440,13 @@
             // Episode Banner configuration (Primary)
             // ---------------------------
             banner: {
-                enabled: true, // true = show banner, false = hide banner
+                enabled: false, // true = show banner, false = hide banner
                 tvShowSourceMode: "default", // default | episode | season | series
                 horizontal: "right", // "left" | "right" | "center"
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -463,7 +463,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -480,7 +480,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -497,7 +497,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -514,7 +514,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -531,7 +531,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -548,7 +548,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -565,7 +565,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -582,7 +582,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -599,7 +599,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -616,7 +616,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -633,7 +633,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -650,7 +650,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -679,10 +679,10 @@
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "9.3vh", // maximum height of the logo (must have a value, not optional)
-                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
                 zIndex: "8" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
@@ -696,7 +696,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the clearart (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -714,7 +714,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "26vh", // maximum height of the disc (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -727,13 +727,13 @@
             // Video Poster configuration
             // ---------------------------
             poster: {
-                enabled: true, // true = show poster, false = hide poster
+                enabled: false, // true = show poster, false = hide poster
                 videoSourceMode: "default", // default | file | parent | grandparent
                 horizontal: "left", // "left" | "right" | "center"
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "27vh", // maximum height of the poster (must have a value, not optional)
                 maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
@@ -750,7 +750,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the thumb (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -767,7 +767,7 @@
                 vertical: "top", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "7.5vh", // maximum height of the banner (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -784,7 +784,7 @@
                 vertical: "center", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -801,7 +801,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -818,7 +818,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -835,7 +835,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -852,7 +852,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -869,7 +869,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -886,7 +886,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -903,7 +903,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -920,7 +920,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -937,7 +937,7 @@
                 vertical: "bottom", // "top" | "bottom" | "center"
                 offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
                 offsetRight: "4.5vw", // distance from right edge if horizontal="right"
-                offsetTop: "5.3vh", // distance from top edge if vertical="top"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
                 offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
                 maxHeight: "18vh", // maximum height of the background (must have a value, not optional)
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
@@ -1543,7 +1543,11 @@
 
             img.style.left = cfg.horizontal === "left" ? cfg.offsetLeft : cfg.horizontal === "center" ? "50%" : "auto";
             img.style.right = cfg.horizontal === "right" ? cfg.offsetRight : "auto";
-            img.style.top = cfg.vertical === "top" ? cfg.offsetTop : cfg.vertical === "center" ? "50%" : "auto";
+            img.style.top = cfg.vertical === "top"
+            ? (isFull ? "calc(" + cfg.offsetTop + " + 1.5vh)" : cfg.offsetTop)
+            : cfg.vertical === "center"
+            ? "50%"
+            : "auto";
 
             if (cfg.vertical === "bottom") {
                 img.style.bottom = isFull ? "calc(" + cfg.offsetBottom + " - 1.5vh)" : cfg.offsetBottom;
@@ -1610,4 +1614,3 @@
     updateArtwork();
     injectZIndexFixes();
 })();
-
