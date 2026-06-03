@@ -25,15 +25,15 @@ Behavior on other operating systems, browsers, or Jellyfin versions is unknown a
 *Screenshots are only example showcase. It absolutely does not mean that everything should be displayed at the same time like stickers. Of course it looks best with just one layer, for example a clearlogo left top or clearart right bottom, and at most a second one added, such as discart or season poster.
 
 ---
-This script adds configurable artwork overlays to the Jellyfin video OSD and displays logos, clearart, discs, posters, banners, thumbnails, and multiple backdrops directly over the video player using existing Jellyfin artwork and metadata. 
+This script adds configurable artwork overlays to the Jellyfin VideoOSD and displays logos, clearart, discs, posters, banners, thumbnails, and multiple backdrops directly over the video player using existing Jellyfin artwork and metadata. 
 
-It originally started as a single global overlay limited to a `clearlogo.png` in the top-left corner of the Video OSD, but during development this approach proved too restrictive. The system was therefore redesigned into independent profiles for movies, episodes (TV shows), and videos. Each media type can now be configured entirely on its own, allowing completely different artwork layers without shared limitations. What began as a simple overlay has evolved into a modular artwork overlay system covering all libraries, all artwork and sub-artwork types, including fallbacks and free positioning, with the configuration effectively acting as an artwork overlay builder that offers near-total creative freedom.
+It originally started as a single global overlay limited to a `clearlogo.png` in the top-left corner of the VideoOSD, but during development this approach proved too restrictive. The system was therefore redesigned into independent profiles for movies, episodes (TV shows), and videos. Each media type can now be configured entirely on its own, allowing completely different artwork layers without shared limitations. What began as a simple overlay has evolved into a modular artwork overlay system covering all libraries, all artwork and sub-artwork types, including fallbacks and free positioning, with the configuration effectively acting as an artwork overlay builder that offers near-total creative freedom.
 
 ---
 
 ## Overview
 
-Jellyfin VideoOSD Artwork Display is a client-side userscript that injects artwork elements into the Video OSD view.  
+Jellyfin VideoOSD Artwork Display is a client-side userscript that injects artwork elements into the VideoOSD view.  
 It resolves artwork context-aware based on the currently playing item and its choosable hierarchy (episode → season → series, or file → parent → grandparent). Each media type (movie, episode, video) has its own configuration profile and state handling.
 
 ---
@@ -160,8 +160,8 @@ If enabled, disc artwork can rotate while video playback is active.
 
 ## Known Bugs and Issues
 
-EDIT: fixed (Thank You @HighImKevin)  
-OSD layering (Play Next):  
+EDIT: solved/fixed (Thank You @HighImKevin)  
+VideoOSD layering (Play Next):  
 ~~The artwork overlays are successfully positioned behind elements part of videoOSD or can be visible during: trickplay thumbnails, skip buttons, and media info overlays. However, during the "Play Next" action, the artwork currently remains still in the foreground.~~
 
 ~~The "Play Next" event cannot be reliably triggered manually, which makes debugging difficult.~~
@@ -169,14 +169,16 @@ OSD layering (Play Next):
 
 ---
 
-Limited support for special content types  
-The following content types are not fully supported:
-- File stacking
-- Trailers
-- Bonus or extra content
+EDIT: While testing, I only realized much later that these video types are supported as well. They are detected as regular videos. However, trailers and extras require separate artwork files, either in their respective folders, for example clearlogo.png, or directly alongside the video files, for example filename-clearlogo.png. When using file stacking, the artwork files must be placed directly next to the corresponding files, for example filename-clearlogo.png. Cross-referencing a trailer or extra to a movie or TV show is not possible. Therefore, if you want artwork for these videos as well, you inevitably have to work with artwork copies.
+Limited support for special content types:
+~~The following content types are not fully supported:~~
+~~- File stacking~~
+~~- Trailers~~
+~~- Bonus or extra content~~
 
-Extras, Trailers, Bonus content (stacked sub videos) are treated by Jellyfin as standalone videos and cannot be reliably linked back to their parent movie/series. (have not find out yet)
-In these cases empty, at most may fallback poster appear or the thumb "videofile-poster" generated in the Jellyfin (Screen Grabber / Image Extractor), or when the artwork directly assigned to the stacked files themselves or same folder. Else empty.
+~~Extras, Trailers, Bonus content (stacked sub videos) are treated by Jellyfin as standalone videos and cannot be reliably linked back to their parent movie/series. (have not find out yet)~~
+
+~~In these cases empty, at most may fallback poster appear or the thumb "videofile-poster" generated in the Jellyfin (Screen Grabber / Image Extractor), or when the artwork directly assigned to the stacked files themselves or same folder. Else empty.~~
 
 ---
 
