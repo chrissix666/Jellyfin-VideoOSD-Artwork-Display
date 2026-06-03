@@ -1,4 +1,14 @@
 (function() {
+    'use strict';
+
+    const ADDON_ID = 'jellyfin-osd-artwork';
+    const ADDON_NAME = 'OSD Artwork';
+    const CUSTOMS_API_NAME = 'JellyfinVideoOSDCustomsMenu';
+    const CUSTOMS_WAIT_MS = 300;
+    const CUSTOMS_WAIT_TRIES = 120;
+    const CUSTOMS_STORAGE_KEY =
+        CUSTOMS_API_NAME + '.addon.' + ADDON_ID;
+
     // ===============================
     // CONFIGURATION
     // ===============================
@@ -974,6 +984,20 @@
     let resolving = false;
     let activeKind = "video";
 
+    let enabled = false;
+    let observer = null;
+    let registeredWithCustoms = false;
+    let customsRegisterTimer = null;
+
+    /*
+        Wenn das Script ohne Customs gestartet wurde,
+        wird ein alter gespeicherter Customs-Status ignoriert.
+        Dadurch kann ein frueheres "false" Artwork spaeter nicht
+        heimlich wieder ausschalten.
+    */
+    let ignoreStoredCustomsState = false;
+
+
     // ===============================
     // CREATE IMAGE ELEMENT
     // ===============================
@@ -1124,6 +1148,27 @@
         });
     };
 
+    const removeImages = () => {
+        resetImages();
+
+        KINDS.forEach(kind => {
+            const imgs = IMAGES[kind];
+            if (!imgs) return;
+
+            Object.keys(imgs).forEach(k => {
+                const img = imgs[k];
+                if (img) {
+                    img.remove();
+                    imgs[k] = null;
+                }
+            });
+        });
+
+        previousItemId = null;
+        resolving = false;
+        activeKind = "video";
+    };
+
     const hideAllKindsExcept = active => {
         KINDS.forEach(kind => {
             if (kind === active) return;
@@ -1149,12 +1194,16 @@
         const test = new Image();
 
         test.onload = () => {
+            if (!enabled || !el.isConnected) return;
+
             el.src = url;
             el.style.display = "block";
             if (cb) cb();
         };
 
         test.onerror = () => {
+            if (!enabled || !el.isConnected) return;
+
             el.src = "";
             el.style.opacity = "0";
         };
@@ -1279,13 +1328,13 @@
     // RESOLVE & LOAD ARTWORK
     // ===============================
     const resolveAndLoadArtwork = async itemId => {
-        if (resolving || !window.ApiClient || !itemId) return;
+        if (!enabled || resolving || !window.ApiClient || !itemId) return;
         resolving = true;
 
         try {
             const userId = ApiClient.getCurrentUserId();
             const item = await ApiClient.getItem(userId, itemId);
-            if (!item) return;
+            if (!enabled || !item) return;
 
             const kind = getKindFromItem(item);
             activeKind = kind;
@@ -1298,6 +1347,7 @@
             hideAllKindsExcept(kind);
 
             const baseChain = await resolveChain(item, userId);
+            if (!enabled) return;
 
             st.clearartState = "none";
 
@@ -1473,6 +1523,8 @@
     // UPDATE VISIBILITY & POSITION
     // ===============================
     const updateArtwork = () => {
+        if (!enabled) return;
+
         if (!isVideoPage() || !getCurrentOsdId()) {
             resetImages();
             previousItemId = null;
@@ -1544,7 +1596,7 @@
             img.style.left = cfg.horizontal === "left" ? cfg.offsetLeft : cfg.horizontal === "center" ? "50%" : "auto";
             img.style.right = cfg.horizontal === "right" ? cfg.offsetRight : "auto";
             img.style.top = cfg.vertical === "top"
-            ? (isFull ? "calc(" + cfg.offsetTop + " + 1.5vh)" : cfg.offsetTop)
+            ? (isFull ? "calc(" + cfg.offsetTop + " - 1vh)" : cfg.offsetTop)
             : cfg.vertical === "center"
             ? "50%"
             : "auto";
@@ -1594,23 +1646,147 @@
     };
 
     // ===============================
-    // EVENT LISTENERS
+    // CUSTOMS ADDON LIFECYCLE
     // ===============================
-    window.addEventListener("hashchange", resetImages);
-    window.addEventListener("beforeunload", resetImages);
+    const isCustomsAvailable = () => {
+        const api = window[CUSTOMS_API_NAME];
+        return !!api && typeof api.registerAddon === "function";
+    };
 
-    const observer = new MutationObserver(updateArtwork);
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ["style", "class"]
-    });
+    const isEnabledByCustomsState = () =>
+        localStorage.getItem(CUSTOMS_STORAGE_KEY) !== "false";
 
-    // ===============================
-    // INITIALIZATION
-    // ===============================
-    ensureImages();
-    updateArtwork();
-    injectZIndexFixes();
+    const enable = () => {
+        if (enabled) return;
+
+        enabled = true;
+
+        ensureImages();
+        injectZIndexFixes();
+        updateArtwork();
+
+        window.addEventListener("hashchange", resetImages);
+        window.addEventListener("beforeunload", resetImages);
+
+        if (!observer) {
+            observer = new MutationObserver(() => {
+                updateArtwork();
+                tryRegisterWithCustoms();
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ["style", "class"]
+            });
+        }
+    };
+
+    const disable = () => {
+        if (!enabled) return;
+
+        enabled = false;
+
+        if (observer) {
+            observer.disconnect();
+            observer = null;
+        }
+
+        window.removeEventListener("hashchange", resetImages);
+        window.removeEventListener("beforeunload", resetImages);
+
+        removeImages();
+
+        const zIndexFixes = document.getElementById("osd-zindex-fixes");
+        if (zIndexFixes) zIndexFixes.remove();
+    };
+
+    const tryRegisterWithCustoms = () => {
+        if (registeredWithCustoms) return false;
+
+        const api = window[CUSTOMS_API_NAME];
+
+        if (!api || typeof api.registerAddon !== "function") {
+            return false;
+        }
+
+        registeredWithCustoms = true;
+
+        if (localStorage.getItem(CUSTOMS_STORAGE_KEY) === null) {
+            localStorage.setItem(CUSTOMS_STORAGE_KEY, "true");
+        }
+
+        api.registerAddon({
+            id: ADDON_ID,
+            name: ADDON_NAME,
+
+            enable() {
+                ignoreStoredCustomsState = false;
+                enable();
+            },
+
+            disable() {
+                ignoreStoredCustomsState = false;
+                disable();
+            }
+        });
+
+        /*
+            Nur wenn Customs schon beim Start relevant war,
+            wird der gespeicherte Customs-State angewendet.
+
+            Wenn Artwork zuerst ohne Customs gestartet wurde,
+            bleibt Artwork aktiv und ein altes "false" wird ignoriert.
+        */
+        if (!ignoreStoredCustomsState) {
+            if (isEnabledByCustomsState()) {
+                enable();
+            } else {
+                disable();
+            }
+        } else {
+            enable();
+        }
+
+        return true;
+    };
+
+    const startCustomsRegistrationWatcher = () => {
+        tryRegisterWithCustoms();
+
+        if (registeredWithCustoms) return;
+
+        let tries = 0;
+
+        customsRegisterTimer = setInterval(() => {
+            tries += 1;
+            tryRegisterWithCustoms();
+
+            if (registeredWithCustoms || tries >= CUSTOMS_WAIT_TRIES) {
+                clearInterval(customsRegisterTimer);
+                customsRegisterTimer = null;
+            }
+        }, CUSTOMS_WAIT_MS);
+    };
+
+    const start = () => {
+        if (isCustomsAvailable()) {
+            ignoreStoredCustomsState = false;
+            tryRegisterWithCustoms();
+        } else {
+            ignoreStoredCustomsState = true;
+            enable();
+        }
+
+        startCustomsRegistrationWatcher();
+    };
+
+    if (document.documentElement) {
+        start();
+    } else {
+        document.addEventListener("DOMContentLoaded", start, {
+            once: true
+        });
+    }
 })();
