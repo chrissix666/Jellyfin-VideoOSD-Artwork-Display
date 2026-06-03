@@ -169,9 +169,9 @@ VideoOSD layering (Play Next):
 
 ---
 
-EDIT: While testing, I only realized much later that these video types are supported as well. They are detected as regular videos. However, trailers and extras require separate artwork files, either in their respective folders, for example clearlogo.png, or directly alongside the video files, for example filename-clearlogo.png. When using file stacking, the artwork files must be placed directly next to the corresponding files, for example filename-clearlogo.png. Cross-referencing a trailer or extra to a movie or TV show is not possible. Therefore, if you want artwork for these videos as well, you inevitably have to work with artwork copies.
-
 Limited support for special content types:
+
+EDIT: While testing, I only realized much later that these video types are supported as well. They are detected as regular videos. However, trailers and extras require separate artwork files, either in their respective folders, for example clearlogo.png, or directly alongside the video files, for example filename-clearlogo.png. When using file stacking, the artwork files must be placed directly next to the corresponding files, for example filename-clearlogo.png. Cross-referencing a trailer or extra to a movie or TV show is not possible. Therefore, if you want artwork for these videos as well, you inevitably have to work with artwork copies.
 
 ~~The following content types are not fully supported:~~
 ~~- File stacking~~
