@@ -2,7 +2,9 @@ Overview of all my Jellyfin Web VideoOSD projects: [Jellyfin-VideoOSD-Projects-O
 
 ---
 
-Note: This script is compatible with the [Jellyfin-VideoOSD-CustomOnOff-Menu](https://github.com/chrissix666/Jellyfin-VideoOSD-CustomOnOff-Menu).
+Note:<br>
+This script is compatible with the [Jellyfin-VideoOSD-CustomOnOff-Menu](https://github.com/chrissix666/Jellyfin-VideoOSD-CustomOnOff-Menu).<br>
+This script is also compatible with [Bulk-ClearlogoCreator-FromFonts](https://github.com/chrissix666/PythonScript-Bulk-ClearlogoCreator-FromFonts).
 
 # Jellyfin VideoOSD Artwork Display
 
