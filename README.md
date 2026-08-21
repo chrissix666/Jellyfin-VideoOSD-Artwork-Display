@@ -196,23 +196,6 @@ Other environments are untested.
 
 ---
 
-## Disclaimer
-
-This script was created through trial and error and experimentation.  
-I am not a professional JavaScript developer.
-
-The code is shared in the hope that others may find it useful, improve it, or adapt it to their own setups.  
-Suggestions, improvements, and pull requests are welcome.
-
-JavaScript injection modifies the client-side behavior of Jellyfin and can potentially cause instability, visual glitches, or unexpected behavior.  
-Use this script cautiously and only if you understand the risks involved.
-
-Avoid using multiple conflicting JavaScript injects at the same time and always test changes carefully.
-
-This project is not affiliated with or endorsed by Jellyfin.
-
----
-
 ## License
 
 MIT License  
