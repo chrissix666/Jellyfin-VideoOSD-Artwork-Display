@@ -6,14 +6,20 @@
     const PLUGIN_GUID = '468b1980-7a6c-4e45-a129-24825085ece4';
 
     async function fetchPluginConfig() {
-        if (!window.ApiClient || typeof ApiClient.getPluginConfiguration !== 'function') {
-            return null;
+        const maxAttempts = 120;
+        const delayMs = 250;
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            if (window.ApiClient && typeof ApiClient.getPluginConfiguration === 'function') {
+                try {
+                    const config = await ApiClient.getPluginConfiguration(PLUGIN_GUID);
+                    if (config) return config;
+                } catch (err) {
+                    // fall through, try again after the delay below
+                }
+            }
+            await new Promise(function (resolve) { setTimeout(resolve, delayMs); });
         }
-        try {
-            return await ApiClient.getPluginConfiguration(PLUGIN_GUID);
-        } catch (err) {
-            return null;
-        }
+        return null;
     }
 
     // Generic, mechanical reconstruction of CONFIG from the flat plugin
