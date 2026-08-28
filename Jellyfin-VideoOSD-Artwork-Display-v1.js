@@ -1,6 +1,86 @@
 (function() {
     'use strict';
 
+    // ---- PLUGIN ADAPTER: config source, retrofit for VideoOSD Tweaks and Candy ----
+    // GUID of the "VideoOSD Tweaks and Candy" Jellyfin plugin.
+    const PLUGIN_GUID = '468b1980-7a6c-4e45-a129-24825085ece4';
+
+    async function fetchPluginConfig() {
+        if (!window.ApiClient || typeof ApiClient.getPluginConfiguration !== 'function') {
+            return null;
+        }
+        try {
+            return await ApiClient.getPluginConfiguration(PLUGIN_GUID);
+        } catch (err) {
+            return null;
+        }
+    }
+
+    // Generic, mechanical reconstruction of CONFIG from the flat plugin
+    // config object, deliberately NOT 599 individual hand-written
+    // assignment lines. The property-name pattern is fully mechanical
+    // (ContentType + ArtworkType + FieldName, PascalCase, e.g.
+    // "MovieLogoEnabled", "EpisodeBackdrop3ZIndex"), the exact same
+    // pattern used to generate the 599 PluginConfiguration.cs properties
+    // in the first place, so this function derives the right property
+    // name to look up for every single field in CONFIG automatically,
+    // rather than needing 599 lines that could each individually contain
+    // a typo. Verified separately (see build status notes) by simulating
+    // every property name this function would ever look up and confirming
+    // each one matches a real PluginConfiguration.cs property exactly.
+    function pascalCase(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function applyPluginConfig(pluginConfig) {
+        if (!pluginConfig) return;
+
+        const CONTENT_TYPES = ["movie", "episode", "video"];
+
+        CONTENT_TYPES.forEach(function (kind) {
+            const kindData = CONFIG[kind];
+            if (!kindData) return;
+
+            const kindPascal = pascalCase(kind);
+
+            Object.keys(kindData).forEach(function (key) {
+                // Content-type-level rules (not nested under an artwork type).
+                if (key === "hideLogoWhenClearartFallback" || key === "hideLogoWhenClearartAvailable") {
+                    const propName = kindPascal + pascalCase(key);
+                    if (propName in pluginConfig) {
+                        kindData[key] = pluginConfig[propName];
+                    }
+                    return;
+                }
+
+                const artworkObj = kindData[key];
+                if (!artworkObj || typeof artworkObj !== "object") return;
+
+                const artworkPascal = pascalCase(key);
+
+                Object.keys(artworkObj).forEach(function (field) {
+                    // The 3 source-mode field names (movieSourceMode /
+                    // tvShowSourceMode / videoSourceMode) were all
+                    // collapsed to the single, non-redundant "SourceMode"
+                    // when the C# property names were generated (see the
+                    // concept/build-status notes), undo that same
+                    // collapsing here so the lookup key matches.
+                    let fieldForName = field;
+                    if (field === "movieSourceMode" || field === "tvShowSourceMode" || field === "videoSourceMode") {
+                        fieldForName = "sourceMode";
+                    }
+
+                    const propName = kindPascal + artworkPascal + pascalCase(fieldForName);
+                    if (propName in pluginConfig) {
+                        artworkObj[field] = pluginConfig[propName];
+                    }
+                });
+            });
+        });
+    }
+    // ---- END PLUGIN ADAPTER ----
+
+
     const ADDON_ID = 'jellyfin-osd-artwork';
     const ADDON_NAME = 'OSD Artwork';
     const CUSTOMS_API_NAME = 'JellyfinVideoOSDCustomsMenu';
@@ -1628,6 +1708,16 @@
     // ===============================
     // OSD Z-INDEX FIXES
     // ===============================
+    // Per the JS compatibility strategy decision in the concept document:
+    // this global CSS side effect (touches shared, native Jellyfin classes
+    // like .videoOsdBottom and .skinHeader, not just this mod's own
+    // elements) is meant to go through a clearly named, standalone adapter
+    // function rather than being applied ad hoc inline, so its mechanism
+    // could be changed later (e.g. coordinated through the shared Core
+    // script instead of injected independently) without having to touch
+    // enable()/disable() below. This function already was exactly that
+    // shape before this retrofit, no functional change here, only this
+    // clarifying note.
     const injectZIndexFixes = () => {
         const id = "osd-zindex-fixes";
         if (document.getElementById(id)) return;
@@ -1789,4 +1879,28 @@
             once: true
         });
     }
+
+    // ---- PLUGIN ADAPTER: apply fetched config once it arrives ----
+    // Fired in parallel with the synchronous startup above, not awaited
+    // there, so standalone (no-plugin) behavior starts exactly as fast as
+    // before. If a plugin config does arrive after local defaults were
+    // already used to render artwork, a full re-resolve is forced
+    // (resetImages() + ensureImages() + clearing previousItemId so
+    // updateArtwork() treats the current item as "changed" and re-fetches
+    // everything) rather than relying on the next natural item change,
+    // so newly enabled/disabled artwork types and any changed
+    // positioning/values are picked up immediately.
+    fetchPluginConfig().then(function (pluginConfig) {
+        if (!pluginConfig) return;
+
+        applyPluginConfig(pluginConfig);
+
+        if (enabled) {
+            resetImages();
+            ensureImages();
+            previousItemId = null;
+            updateArtwork();
+        }
+    });
+    // ---- END PLUGIN ADAPTER ----
 })();
