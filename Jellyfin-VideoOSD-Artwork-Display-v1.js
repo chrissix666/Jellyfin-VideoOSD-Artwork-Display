@@ -1907,6 +1907,8 @@
             previousItemId = null;
             updateArtwork();
         }
+    }).catch(function (err) {
+        console.error('[VideoOSD Artwork] config apply failed:', err);
     });
     // ---- END PLUGIN ADAPTER ----
 })();
