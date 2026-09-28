@@ -9,11 +9,38 @@
         const maxAttempts = 120;
         const delayMs = 250;
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            // No ApiClient yet (jellyfin-web creates it once a server is
+            // known, e.g. after the server selection page): wait without
+            // using up an attempt, like the not-logged-in case below.
+            if (!window.ApiClient) attempt--;
             if (window.ApiClient && typeof ApiClient.getPluginConfiguration === 'function') {
+                // Not logged in yet (e.g. still on the login page): every
+                // request would only fail with 401, so wait without using up
+                // an attempt (the whole budget used to run out right there).
+                if (typeof ApiClient.accessToken === 'function' && !ApiClient.accessToken()) {
+                    attempt--;
+                    await new Promise(function (resolve) { setTimeout(resolve, delayMs); });
+                    continue;
+                }
                 try {
-                    const config = await ApiClient.getPluginConfiguration(PLUGIN_GUID);
+                    // The plugin's own endpoint (1.0.1.0+) is readable for every
+                    // signed-in user; Jellyfin's plugin configuration endpoint
+                    // is admin-only. Older plugin versions answer 404 there, then
+                    // the admin-only endpoint is used as before.
+                    let config;
+                    try {
+                        config = await ApiClient.getJSON(ApiClient.getUrl('VideoOSDTweaksCandy/ClientConfiguration'));
+                    } catch (endpointErr) {
+                        if (!(endpointErr && endpointErr.status === 404)) throw endpointErr;
+                        config = await ApiClient.getPluginConfiguration(PLUGIN_GUID);
+                    }
                     if (config) return config;
                 } catch (err) {
+                    // 403: the configuration endpoint is admin-only; 404: plugin
+                    // not installed (standalone use). Retrying can't change
+                    // either, so stop and use the defaults instead of sending
+                    // up to 120 failing requests.
+                    if (err && (err.status === 403 || err.status === 404)) return null;
                     // fall through, try again after the delay below
                 }
             }
@@ -1068,6 +1095,10 @@
 
     let previousItemId = null;
     let resolving = false;
+    // Incremented for every artwork resolve and on every reset: a resolve
+    // (or an image load it started) only applies its result while its
+    // own number is still the current one.
+    let resolveGen = 0;
     let activeKind = "video";
 
     let enabled = false;
@@ -1208,6 +1239,8 @@
     // RESET IMAGES
     // ===============================
     const resetImages = () => {
+        resolveGen++;
+
         KINDS.forEach(kind => {
             const imgs = IMAGES[kind];
             if (!imgs) return;
@@ -1276,11 +1309,17 @@
     const loadImage = (el, itemId, type, cb) => {
         if (!el || !itemId) return;
 
-        const url = `/Items/${itemId}/Images/${type}?maxHeight=400&ts=${Date.now()}`;
+        // Built through ApiClient.getUrl(): a root-relative "/Items/..."
+        // URL misses servers running under a base URL (e.g. /jellyfin) or
+        // behind a reverse-proxy subpath, so no artwork ever loaded there.
+        const url = (window.ApiClient && typeof ApiClient.getUrl === "function")
+            ? ApiClient.getUrl(`Items/${itemId}/Images/${type}`, { maxHeight: 400, ts: Date.now() })
+            : `/Items/${itemId}/Images/${type}?maxHeight=400&ts=${Date.now()}`;
+        const gen = resolveGen;
         const test = new Image();
 
         test.onload = () => {
-            if (!enabled || !el.isConnected) return;
+            if (!enabled || !el.isConnected || gen !== resolveGen) return;
 
             el.src = url;
             el.style.display = "block";
@@ -1288,7 +1327,7 @@
         };
 
         test.onerror = () => {
-            if (!enabled || !el.isConnected) return;
+            if (!enabled || !el.isConnected || gen !== resolveGen) return;
 
             el.src = "";
             el.style.opacity = "0";
@@ -1413,14 +1452,29 @@
     // ===============================
     // RESOLVE & LOAD ARTWORK
     // ===============================
+    // FIX: while one resolve was still waiting on its API calls, a quick
+    // item change (e.g. pressing "next" twice) was dropped entirely by the
+    // old "resolving" early return, and the first resolve then filled the
+    // images with the PREVIOUS item's artwork. Every resolve now gets its
+    // own generation number; a superseded one stops after each await, and
+    // its pending image loads are ignored (see loadImage()).
+    // A hash change resets the images, which also cancels a pending
+    // resolve (see resolveGen); forget the item too, so the next update
+    // resolves it again instead of leaving it without artwork.
+    const onHashChange = () => {
+        resetImages();
+        previousItemId = null;
+    };
+
     const resolveAndLoadArtwork = async itemId => {
-        if (!enabled || resolving || !window.ApiClient || !itemId) return;
+        if (!enabled || !window.ApiClient || !itemId) return;
+        const gen = ++resolveGen;
         resolving = true;
 
         try {
             const userId = ApiClient.getCurrentUserId();
             const item = await ApiClient.getItem(userId, itemId);
-            if (!enabled || !item) return;
+            if (!enabled || !item || gen !== resolveGen) return;
 
             const kind = getKindFromItem(item);
             activeKind = kind;
@@ -1433,7 +1487,7 @@
             hideAllKindsExcept(kind);
 
             const baseChain = await resolveChain(item, userId);
-            if (!enabled) return;
+            if (!enabled || gen !== resolveGen) return;
 
             st.clearartState = "none";
 
@@ -1568,7 +1622,7 @@
                 resolveBackdropSlot(kind, baseChain, P[key], imgs[key], i);
             }
         } finally {
-            resolving = false;
+            if (gen === resolveGen) resolving = false;
         }
     };
 
@@ -1679,6 +1733,12 @@
                 }
             }
 
+            // Z-index was only set when the element was created, which
+            // happens with the built-in defaults before the plugin config
+            // arrives, so configured values never applied to the
+            // default-enabled types (logo, clearart, disc).
+            img.style.zIndex = String(cfg.zIndex || "2");
+
             img.style.left = cfg.horizontal === "left" ? cfg.offsetLeft : cfg.horizontal === "center" ? "50%" : "auto";
             img.style.right = cfg.horizontal === "right" ? cfg.offsetRight : "auto";
             img.style.top = cfg.vertical === "top"
@@ -1761,7 +1821,7 @@
         injectZIndexFixes();
         updateArtwork();
 
-        window.addEventListener("hashchange", resetImages);
+        window.addEventListener("hashchange", onHashChange);
         window.addEventListener("beforeunload", resetImages);
 
         if (!observer) {
@@ -1789,7 +1849,7 @@
             observer = null;
         }
 
-        window.removeEventListener("hashchange", resetImages);
+        window.removeEventListener("hashchange", onHashChange);
         window.removeEventListener("beforeunload", resetImages);
 
         removeImages();
