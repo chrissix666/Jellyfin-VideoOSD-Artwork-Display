@@ -1175,16 +1175,16 @@
     // ===============================
     const getCurrentOsdId = () =>
         (window.NowPlayingItem && window.NowPlayingItem.Id) ||
-        (document.querySelector("#videoOsdPage .btnUserRating") &&
-            document.querySelector("#videoOsdPage .btnUserRating").dataset &&
-            document.querySelector("#videoOsdPage .btnUserRating").dataset.id) ||
+        (document.querySelector("#videoOsdPage:not(.hide) .btnUserRating") &&
+            document.querySelector("#videoOsdPage:not(.hide) .btnUserRating").dataset &&
+            document.querySelector("#videoOsdPage:not(.hide) .btnUserRating").dataset.id) ||
         null;
 
     const isVideoPage = () => window.location.href.indexOf("#/video") !== -1;
 
     const isOSDVisible = () => {
         const h = document.querySelector(".osdHeader");
-        const b = document.querySelector(".videoOsdBottom");
+        const b = document.querySelector("#videoOsdPage:not(.hide) .videoOsdBottom");
         return (h && getComputedStyle(h).opacity !== "0") || (b && getComputedStyle(b).opacity !== "0");
     };
 
