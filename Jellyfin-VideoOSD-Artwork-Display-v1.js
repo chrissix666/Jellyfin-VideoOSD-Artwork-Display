@@ -1116,6 +1116,322 @@
 
 
     // ===============================
+    // OSD ANCHORING
+    // ===============================
+    // Artwork is placed relative to the video OSD instead of the window
+    // edge: bottom-aligned artwork sits on the top edge of the control bar
+    // (.osdControls), top-aligned artwork below the OSD header
+    // (5.1rem, the OSD header's full height), left/right artwork on the bar's content edge
+    // (where the timeline starts and ends). The anchors are measured from
+    // the live OSD and kept as CSS variables on <html>, so the configured
+    // distance stays the same at every zoom level and window size. Offsets
+    // and sizes are in rem (they zoom together with the OSD); older vh/vw
+    // values are converted when the configuration is loaded.
+    const AOA = {
+        // Reference the old vh/vw values were tuned on: 1920x1080 at 100 %
+        // zoom, i.e. fullscreen, where the old correction of -1vh (top) and
+        // -1.5vh (bottom) applied. 1vh = 10.8px, 1vw = 19.2px, 1rem = 14.88px
+        // (jellyfin-web root font size 93 %).
+        VH_REM: 10.8 / 14.88,
+        VW_REM: 19.2 / 14.88,
+        // jellyfin-web 10.10.7 OSD at that reference, from its stylesheets:
+        // bar top above the window bottom = padding-bottom 1.75em + button
+        // row (0.25em + 2 x 0.556em + 1.67em icon) + timeline row (0.75em +
+        // 1.25em) + title row margin 0.7em = 7.4816rem;
+        // header bottom = headerTop 3.5em + padding 2 x 0.8em = 5.1rem;
+        // bar content edge = .osdControls padding 0.8em.
+        BAR_REM: 7.4816,
+        HEADER_REM: 5.1,
+        SIDE_REM: 0.8,
+        // At the reference the old default offsetBottom (9.4vh) put the
+        // artwork 0.38px into the timeline line, invisible at 100 % but
+        // growing with zoom. Converted bottom offsets are raised by this so
+        // the old default sits exactly on the line.
+        BOTTOM_FIX_REM: 0.03,
+        // Free band between header and bar below this: artwork of that
+        // alignment is hidden instead of squeezed.
+        MIN_BAND_REM: 4
+    };
+
+    // Converts an old vh/vw value to rem measured from its anchor, so it
+    // looks exactly as before at the reference. Anything else (rem, px,
+    // "auto", calc) is returned unchanged.
+    const aoaToRem = (value, role) => {
+        if (typeof value !== "string") return value;
+        const m = value.trim().match(/^(-?\d*\.?\d+)(vh|vw)$/i);
+        if (!m) return value;
+        const isVh = m[2].toLowerCase() === "vh";
+        let rem = parseFloat(m[1]) * (isVh ? AOA.VH_REM : AOA.VW_REM);
+        if (role === "bottom") rem -= (isVh ? 1.5 * AOA.VH_REM : 0) + AOA.BAR_REM - AOA.BOTTOM_FIX_REM;
+        else if (role === "top") rem -= (isVh ? AOA.VH_REM : 0) + AOA.HEADER_REM;
+        else if (role === "left" || role === "right") rem -= AOA.SIDE_REM;
+        return (Math.round(rem * 100) / 100) + "rem";
+    };
+
+    const AOA_FIELD_ROLES = {
+        offsetTop: "top",
+        offsetBottom: "bottom",
+        offsetLeft: "left",
+        offsetRight: "right",
+        maxHeight: "size",
+        maxWidth: "size"
+    };
+
+    const aoaNormalizeConfig = () => {
+        Object.keys(CONFIG).forEach(kind => {
+            const kindData = CONFIG[kind];
+            if (!kindData || typeof kindData !== "object") return;
+            Object.keys(kindData).forEach(key => {
+                const cfg = kindData[key];
+                if (!cfg || typeof cfg !== "object") return;
+                Object.keys(AOA_FIELD_ROLES).forEach(field => {
+                    if (field in cfg) cfg[field] = aoaToRem(cfg[field], AOA_FIELD_ROLES[field]);
+                });
+            });
+        });
+    };
+
+    // A configured value as a CSS length: missing, "auto" and "none" count
+    // as 0, a bare number (hand-edited config) as rem.
+    const aoaLen = v => {
+        const s = (v === undefined || v === null) ? "" : String(v).trim();
+        if (!s || s === "auto" || s === "none") return "0px";
+        return /^-?\d*\.?\d+$/.test(s) ? s + "rem" : s;
+    };
+
+    const aoaHasSize = v => {
+        const s = (v === undefined || v === null) ? "" : String(v).trim();
+        return !!s && s !== "auto" && s !== "none";
+    };
+
+    // Sets position and size caps of one image from its anchors. sizeCfg
+    // supplies maxHeight/maxWidth when they come from another type (the
+    // clearart that falls back to the logo uses the logo's size).
+    const aoaApply = (img, cfg, sizeCfg) => {
+        const s = sizeCfg || cfg;
+        let capH;
+        let capW;
+
+        if (cfg.vertical === "top") {
+            img.style.top = "calc(var(--aoa-top, 0px) + " + aoaLen(cfg.offsetTop) + ")";
+            img.style.bottom = "auto";
+            capH = "calc(var(--aoa-band, 100vh) - (" + aoaLen(cfg.offsetTop) + "))";
+        } else if (cfg.vertical === "center") {
+            img.style.top = "calc(var(--aoa-top, 0px) + var(--aoa-band, 100vh) / 2)";
+            img.style.bottom = "auto";
+            capH = "var(--aoa-band, 100vh)";
+        } else {
+            img.style.top = "auto";
+            img.style.bottom = "calc(var(--aoa-bottom, 0px) + " + aoaLen(cfg.offsetBottom) + ")";
+            capH = "calc(var(--aoa-band, 100vh) - (" + aoaLen(cfg.offsetBottom) + "))";
+        }
+
+        if (cfg.horizontal === "left") {
+            img.style.left = "calc(var(--aoa-left, 0px) + " + aoaLen(cfg.offsetLeft) + ")";
+            img.style.right = "auto";
+            capW = "calc(100vw - var(--aoa-left, 0px) - (" + aoaLen(cfg.offsetLeft) + "))";
+        } else if (cfg.horizontal === "center") {
+            img.style.left = "50%";
+            img.style.right = "auto";
+            capW = "100vw";
+        } else {
+            img.style.left = "auto";
+            img.style.right = "calc(var(--aoa-right, 0px) + " + aoaLen(cfg.offsetRight) + ")";
+            capW = "calc(100vw - var(--aoa-right, 0px) - (" + aoaLen(cfg.offsetRight) + "))";
+        }
+
+        img.style.maxHeight = aoaHasSize(s.maxHeight)
+            ? "min(" + aoaLen(s.maxHeight) + ", " + capH + ")"
+            : capH;
+        img.style.maxWidth = aoaHasSize(s.maxWidth)
+            ? "min(" + aoaLen(s.maxWidth) + ", " + capW + ")"
+            : capW;
+    };
+
+    // "Hide on Narrow Window" (plugin setting ArtworkHideOnNarrowWindow):
+    // hides all artwork below a 50em window width, like the button addons
+    // and Jellyfin's own OSD controls.
+    let aoaHideOnNarrow = true;
+
+    const aoaWriteStyle = () => {
+        const style = document.getElementById("osd-artwork-anchoring");
+        if (!style) return;
+        style.textContent =
+            "html[data-aoa-tight] img[data-aoa] { visibility: hidden !important; }" +
+            (aoaHideOnNarrow
+                ? " @media all and (max-width: 50em) { img[data-aoa] { visibility: hidden !important; } }"
+                : "");
+    };
+
+    let aoaTimer = null;
+    let aoaResizeObserver = null;
+    let aoaObservedCtrl = null;
+    let aoaDprQuery = null;
+    // true while the anchors may be out of date: the bar could not be
+    // measured (hidden) the last time, or it has been hidden since.
+    let aoaStale = true;
+    let aoaBarShown = false;
+
+    const aoaSetVar = (name, px) => {
+        const root = document.documentElement;
+        const value = px.toFixed(2) + "px";
+        if (root.style.getPropertyValue(name) !== value) root.style.setProperty(name, value);
+    };
+
+    // Measures the anchors. While the OSD page is not shown, the last
+    // values stay. After its fade-out jellyfin-web also sets "hide"
+    // (display:none) on the bar, so it cannot be measured while hidden:
+    // the last values stay and are marked stale, and aoaSync() measures
+    // again the moment the bar is shown.
+    const aoaMeasure = () => {
+        aoaTimer = null;
+        const root = document.documentElement;
+        const page = document.querySelector("#videoOsdPage:not(.hide)");
+        if (!page) return;
+
+        // Exact viewport edges in the same coordinate space the fixed images
+        // are positioned in. clientWidth/clientHeight are rounded to whole
+        // pixels while the zoomed viewport is fractional (e.g. 776.7px), which
+        // put bottom-aligned artwork up to 0.5px too low at some zoom levels.
+        let probe = document.getElementById("osd-artwork-anchor-probe");
+        if (!probe) {
+            probe = document.createElement("div");
+            probe.id = "osd-artwork-anchor-probe";
+            probe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;pointer-events:none;visibility:hidden;";
+            document.body.appendChild(probe);
+        }
+        const edge = probe.getBoundingClientRect();
+        const viewW = edge.left;
+        const viewH = edge.top;
+
+        const ctrl = page.querySelector(".videoOsdBottom .osdControls");
+        aoaStale = true;
+        if (ctrl) {
+            const r = ctrl.getBoundingClientRect();
+            if (r.height > 0) {
+                const cs = getComputedStyle(ctrl);
+                aoaSetVar("--aoa-bottom", Math.max(0, viewH - r.top));
+                aoaSetVar("--aoa-left", Math.max(0, r.left + (parseFloat(cs.paddingLeft) || 0)));
+                aoaSetVar("--aoa-right", Math.max(0, viewW - r.right + (parseFloat(cs.paddingRight) || 0)));
+                aoaStale = false;
+            }
+        }
+
+        // Top anchor: the header's full height, not its measured bottom.
+        // jellyfin-web switches the header padding at 100em window width
+        // (0.8em above, 0.54em below), so the measured bottom jumped by
+        // 7.8px whenever zooming crossed that width. The header can never
+        // be taller than 3.5em + 2 x 0.8em (.osdHeader .headerTop max-height),
+        // so this anchor never overlaps it and zooms without any jump.
+        const rootStyle = getComputedStyle(root);
+        const remPx = parseFloat(rootStyle.fontSize) || 16;
+        const top = AOA.HEADER_REM * remPx;
+        aoaSetVar("--aoa-top", top);
+        const bottom = parseFloat(rootStyle.getPropertyValue("--aoa-bottom")) || 0;
+        const band = Math.max(0, viewH - top - bottom);
+        aoaSetVar("--aoa-band", band);
+
+        const tight = band < AOA.MIN_BAND_REM * remPx;
+        if (tight !== root.hasAttribute("data-aoa-tight")) {
+            if (tight) root.setAttribute("data-aoa-tight", "");
+            else root.removeAttribute("data-aoa-tight");
+        }
+
+        if (ctrl !== aoaObservedCtrl) {
+            if (aoaResizeObserver) {
+                aoaResizeObserver.disconnect();
+                if (ctrl) aoaResizeObserver.observe(ctrl);
+            }
+            aoaObservedCtrl = ctrl;
+        }
+    };
+
+    // Called from updateArtwork(), which runs on every DOM mutation (the
+    // disc rotation alone causes one per frame). Cheap check only; measures
+    // right away (not after the 30ms bundle) when the bar has just been
+    // shown again or replaced, so artwork never fades in at an old place.
+    // Resize, zoom, fullscreen and bar size changes have their own triggers.
+    const aoaSync = () => {
+        const page = document.querySelector("#videoOsdPage:not(.hide)");
+        const bottom = page && page.querySelector(".videoOsdBottom");
+        const ctrl = bottom && bottom.querySelector(".osdControls");
+        const shown = !!ctrl && !bottom.classList.contains("hide");
+        if (shown && (!aoaBarShown || aoaStale || ctrl !== aoaObservedCtrl)) {
+            if (aoaTimer) {
+                clearTimeout(aoaTimer);
+                aoaTimer = null;
+            }
+            aoaMeasure();
+        }
+        aoaBarShown = shown;
+    };
+
+    // Bundles bursts of events into one measurement. setTimeout, not
+    // requestAnimationFrame: rAF does not run in background tabs.
+    const aoaSchedule = () => {
+        if (aoaTimer) return;
+        aoaTimer = setTimeout(aoaMeasure, 30);
+    };
+
+    const aoaOnDprChange = () => {
+        aoaWatchDpr();
+        aoaSchedule();
+    };
+
+    const aoaWatchDpr = () => {
+        if (aoaDprQuery) aoaDprQuery.removeEventListener("change", aoaOnDprChange);
+        aoaDprQuery = window.matchMedia("(resolution: " + window.devicePixelRatio + "dppx)");
+        aoaDprQuery.addEventListener("change", aoaOnDprChange);
+    };
+
+    const aoaStart = () => {
+        const id = "osd-artwork-anchoring";
+        if (!document.getElementById(id)) {
+            const style = document.createElement("style");
+            style.id = id;
+            document.head.appendChild(style);
+        }
+        aoaWriteStyle();
+
+        if (!aoaResizeObserver && typeof ResizeObserver === "function") {
+            aoaResizeObserver = new ResizeObserver(aoaSchedule);
+        }
+        window.addEventListener("resize", aoaSchedule);
+        document.addEventListener("fullscreenchange", aoaSchedule);
+        document.addEventListener("webkitfullscreenchange", aoaSchedule);
+        aoaWatchDpr();
+        aoaSchedule();
+    };
+
+    const aoaStop = () => {
+        window.removeEventListener("resize", aoaSchedule);
+        document.removeEventListener("fullscreenchange", aoaSchedule);
+        document.removeEventListener("webkitfullscreenchange", aoaSchedule);
+        if (aoaDprQuery) {
+            aoaDprQuery.removeEventListener("change", aoaOnDprChange);
+            aoaDprQuery = null;
+        }
+        if (aoaResizeObserver) aoaResizeObserver.disconnect();
+        aoaObservedCtrl = null;
+        aoaStale = true;
+        aoaBarShown = false;
+        if (aoaTimer) {
+            clearTimeout(aoaTimer);
+            aoaTimer = null;
+        }
+        const style = document.getElementById("osd-artwork-anchoring");
+        if (style) style.remove();
+        const probe = document.getElementById("osd-artwork-anchor-probe");
+        if (probe) probe.remove();
+        const root = document.documentElement;
+        root.removeAttribute("data-aoa-tight");
+        ["--aoa-top", "--aoa-bottom", "--aoa-left", "--aoa-right", "--aoa-band"].forEach(name => {
+            root.style.removeProperty(name);
+        });
+    };
+
+
+    // ===============================
     // CREATE IMAGE ELEMENT
     // ===============================
     const createImageElement = (cfg, isDisc = false) => {
@@ -1123,12 +1439,6 @@
 
         Object.assign(el.style, {
             position: "fixed",
-            top: cfg.vertical === "top" ? cfg.offsetTop : cfg.vertical === "center" ? "50%" : "auto",
-            bottom: cfg.vertical === "bottom" ? cfg.offsetBottom : "auto",
-            left: cfg.horizontal === "left" ? cfg.offsetLeft : cfg.horizontal === "center" ? "50%" : "auto",
-            right: cfg.horizontal === "right" ? cfg.offsetRight : "auto",
-            maxHeight: cfg.maxHeight,
-            maxWidth: cfg.maxWidth === "auto" || !cfg.maxWidth ? "none" : cfg.maxWidth,
             width: "auto",
             pointerEvents: "none",
             userSelect: "none",
@@ -1143,6 +1453,9 @@
                 (cfg.vertical === "center" ? "translateY(-50%) " : "") +
                 (isDisc ? "rotate(0deg)" : "")
         });
+
+        aoaApply(el, cfg);
+        el.dataset.aoa = "1";
 
         el.draggable = false;
         document.body.appendChild(el);
@@ -1517,7 +1830,7 @@
                     }
                     if (logoFallbackTarget) {
                         loadImage(imgs.clearart, logoFallbackTarget.Id, "Logo", () => {
-                            if (P.logo && P.logo.maxHeight) imgs.clearart.style.maxHeight = P.logo.maxHeight;
+                            if (P.logo && P.logo.maxHeight) aoaApply(imgs.clearart, P.clearart, P.logo);
                         });
                         st.clearartState = "fallback";
                     }
@@ -1681,9 +1994,9 @@
 
         const visible = isOSDVisible();
 
-        const isRealFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement;
-        const isChromeMenuFullscreen = !isRealFullscreen && window.innerHeight === screen.height;
-        const isFull = isRealFullscreen || isChromeMenuFullscreen;
+        // The OSD bar may have been shown again or replaced: re-measure
+        // the anchors right away if so (cheap check otherwise).
+        aoaSync();
 
         const currentKind = activeKind || "video";
 
@@ -1739,26 +2052,10 @@
             // default-enabled types (logo, clearart, disc).
             img.style.zIndex = String(cfg.zIndex || "2");
 
-            img.style.left = cfg.horizontal === "left" ? cfg.offsetLeft : cfg.horizontal === "center" ? "50%" : "auto";
-            img.style.right = cfg.horizontal === "right" ? cfg.offsetRight : "auto";
-            img.style.top = cfg.vertical === "top"
-            ? (isFull ? "calc(" + cfg.offsetTop + " - 1vh)" : cfg.offsetTop)
-            : cfg.vertical === "center"
-            ? "50%"
-            : "auto";
-
-            if (cfg.vertical === "bottom") {
-                img.style.bottom = isFull ? "calc(" + cfg.offsetBottom + " - 1.5vh)" : cfg.offsetBottom;
-            } else {
-                img.style.bottom = "auto";
-            }
-
             if (img === imgs.clearart && st.clearartState === "fallback" && P.logo) {
-                img.style.maxHeight = P.logo.maxHeight;
-                img.style.maxWidth = P.logo.maxWidth === "auto" || !P.logo.maxWidth ? "none" : P.logo.maxWidth;
+                aoaApply(img, cfg, P.logo);
             } else {
-                img.style.maxHeight = cfg.maxHeight;
-                img.style.maxWidth = cfg.maxWidth === "auto" || !cfg.maxWidth ? "none" : cfg.maxWidth;
+                aoaApply(img, cfg);
             }
 
             img.style.transform =
@@ -1817,6 +2114,7 @@
 
         enabled = true;
 
+        aoaStart();
         ensureImages();
         injectZIndexFixes();
         updateArtwork();
@@ -1853,6 +2151,7 @@
         window.removeEventListener("beforeunload", resetImages);
 
         removeImages();
+        aoaStop();
 
         const zIndexFixes = document.getElementById("osd-zindex-fixes");
         if (zIndexFixes) zIndexFixes.remove();
@@ -1938,6 +2237,8 @@
         startCustomsRegistrationWatcher();
     };
 
+    aoaNormalizeConfig();
+
     if (document.documentElement) {
         start();
     } else {
@@ -1960,6 +2261,11 @@
         if (!pluginConfig) return;
 
         applyPluginConfig(pluginConfig);
+        aoaNormalizeConfig();
+        if (typeof pluginConfig.ArtworkHideOnNarrowWindow === "boolean") {
+            aoaHideOnNarrow = pluginConfig.ArtworkHideOnNarrowWindow;
+            aoaWriteStyle();
+        }
 
         if (enabled) {
             resetImages();
