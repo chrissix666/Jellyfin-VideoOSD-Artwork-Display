@@ -1526,10 +1526,17 @@
 
     const isVideoPage = () => window.location.href.indexOf("#/video") !== -1;
 
+    // Any OSD header counts, not only the first: Jellyfin 12.1's modern
+    // layout has two (the hidden legacy header first in the DOM, then the
+    // MUI header box). 10.10.7 has exactly one, so it behaves as before,
+    // including "Up next", where only the header is shown, not the bar.
     const isOSDVisible = () => {
-        const h = document.querySelector(".osdHeader");
+        const headerShown = Array.prototype.some.call(
+            document.querySelectorAll(".osdHeader"),
+            h => getComputedStyle(h).opacity !== "0"
+        );
         const b = document.querySelector("#videoOsdPage:not(.hide) .videoOsdBottom");
-        return (h && getComputedStyle(h).opacity !== "0") || (b && getComputedStyle(b).opacity !== "0");
+        return headerShown || (b && getComputedStyle(b).opacity !== "0");
     };
 
     const getKindFromItem = item => {
