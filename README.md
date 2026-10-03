@@ -19,7 +19,7 @@ Highly experimental, @HighImKevin and @BobHasNoSoul from the Jellyfin community 
 Tested environment  
 This script has been tested exclusively on:
 - Windows 11
-- Jellyfin Web 10.10.7
+- Jellyfin Web 10.10.7 and 12.0+
 - Google Chrome
 
 Behavior on other operating systems, browsers, or Jellyfin versions is unknown and may differ.
@@ -192,7 +192,7 @@ EDIT: While testing, I only realized much later that these video types are suppo
 ## Compatibility
 
 Tested on:
-- Jellyfin Web 10.10.7
+- Jellyfin Web 10.10.7 and 12.0+
 - Windows 11
 - Google Chrome
 
