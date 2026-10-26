@@ -1,6 +1,11 @@
 (function() {
     'use strict';
 
+    // Loaded twice (plugin tag and a JavaScript Injector entry): only the
+    // first copy runs, the second one leaves without touching anything.
+    if (window.JellyfinVideoOSDArtworkLoaded) return;
+    window.JellyfinVideoOSDArtworkLoaded = true;
+
     // ---- PLUGIN ADAPTER: config source, retrofit for VideoOSD Tweaks and Candy ----
 
     async function fetchPluginConfig() {
@@ -64,7 +69,7 @@
     function applyPluginConfig(pluginConfig) {
         if (!pluginConfig) return;
 
-        const CONTENT_TYPES = ["movie", "episode", "video"];
+        const CONTENT_TYPES = ["movie", "episode", "video", "game"];
 
         CONTENT_TYPES.forEach(function (kind) {
             const kindData = CONFIG[kind];
@@ -1072,21 +1077,28 @@
 
     };
 
+    // GAME PROFILE (Playnite Bridge: a game's trailers and extras): the
+    // video profile's defaults; source "file" = the playing video,
+    // "parent" = the game (see findPlayniteGame).
+    CONFIG.game = JSON.parse(JSON.stringify(CONFIG.video));
+
     // ===============================
     // STATE VARIABLES
     // ===============================
-    const KINDS = ["movie", "episode", "video"];
+    const KINDS = ["movie", "episode", "video", "game"];
 
     const IMAGES = {
         movie: {},
         episode: {},
-        video: {}
+        video: {},
+        game: {}
     };
 
     const STATES = {
         movie: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
         episode: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
-        video: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null }
+        video: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
+        game: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null }
     };
 
     let previousItemId = null;
@@ -1547,7 +1559,7 @@
         if (!cfg) return "default";
         if (kind === "episode") return cfg.tvShowSourceMode || "default";
         if (kind === "movie") return cfg.movieSourceMode || "default";
-        if (kind === "video") return cfg.videoSourceMode || "default";
+        if (kind === "video" || kind === "game") return cfg.videoSourceMode || "default";
         return "default";
     };
 
@@ -1692,7 +1704,7 @@
         const mode = getSourceModeForCfg(kind, cfg);
 
         if (kind === "episode") return filterChainForTvShowMode(baseChain, mode);
-        if (kind === "movie" || kind === "video") return filterChainForFileParentGrandparent(baseChain, mode);
+        if (kind === "movie" || kind === "video" || kind === "game") return filterChainForFileParentGrandparent(baseChain, mode);
 
         return baseChain;
     };
@@ -1778,8 +1790,45 @@
     // resolve (see resolveGen); forget the item too, so the next update
     // resolves it again instead of leaving it without artwork.
     const onHashChange = () => {
+        rememberDetailsPage();
         resetImages();
         previousItemId = null;
+    };
+
+    // ===============================
+    // PLAYNITE BRIDGE GAMES
+    // ===============================
+    // Playnite Bridge plays a game's trailers and extras as items of their
+    // own (Trailer / Video, no ParentId), started from the game's detail
+    // page; the game is a virtual Movie item. A playing item counts as a
+    // game's video when the detail page it was started from is such a game
+    // and that game's LocalTrailers / SpecialFeatures list holds it (both
+    // answered by Playnite Bridge). Without the plugin no item matches.
+    let lastDetailsId = null;
+    const playniteGames = {};
+
+    const rememberDetailsPage = () => {
+        const m = /details\?(?:[^#]*&)?id=([0-9a-f-]{32,36})/i.exec(window.location.hash);
+        if (m) lastDetailsId = m[1];
+    };
+
+    const findPlayniteGame = async (item, userId) => {
+        if (!item || item.ParentId || (item.Type !== "Trailer" && item.Type !== "Video") || !lastDetailsId) return null;
+        const key = item.Id + "|" + lastDetailsId;
+        if (key in playniteGames) return playniteGames[key];
+        let game = null;
+        try {
+            const owner = await ApiClient.getItem(userId, lastDetailsId);
+            if (owner && owner.Type === "Movie" && owner.LocationType === "Virtual") {
+                const list = await ApiClient.getJSON(ApiClient.getUrl(
+                    `Items/${owner.Id}/${item.Type === "Trailer" ? "LocalTrailers" : "SpecialFeatures"}`, { userId: userId }));
+                if (Array.isArray(list) && list.some(x => x && x.Id === item.Id)) game = owner;
+            }
+        } catch (e) {
+            game = null;
+        }
+        playniteGames[key] = game;
+        return game;
     };
 
     const resolveAndLoadArtwork = async itemId => {
@@ -1792,7 +1841,9 @@
             const item = await ApiClient.getItem(userId, itemId);
             if (!enabled || !item || gen !== resolveGen) return;
 
-            const kind = getKindFromItem(item);
+            const game = await findPlayniteGame(item, userId);
+            if (!enabled || gen !== resolveGen) return;
+            const kind = game ? "game" : getKindFromItem(item);
             activeKind = kind;
 
             const P = CONFIG[kind];
@@ -1802,7 +1853,7 @@
 
             hideAllKindsExcept(kind);
 
-            const baseChain = await resolveChain(item, userId);
+            const baseChain = game ? [item, game] : await resolveChain(item, userId);
             if (!enabled || gen !== resolveGen) return;
 
             st.clearartState = "none";
@@ -2116,8 +2167,11 @@
         if (enabled) return;
 
         enabled = true;
+        // Signal for other plugins (Playnite Bridge contract): this script draws the OSD artwork.
+        document.documentElement.setAttribute("data-jvosd-artwork", "");
 
         aoaStart();
+        rememberDetailsPage();
         ensureImages();
         injectZIndexFixes();
         updateArtwork();
@@ -2144,6 +2198,7 @@
         if (!enabled) return;
 
         enabled = false;
+        document.documentElement.removeAttribute("data-jvosd-artwork");
 
         if (observer) {
             observer.disconnect();
