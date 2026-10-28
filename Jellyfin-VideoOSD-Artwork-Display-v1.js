@@ -2177,6 +2177,8 @@
         updateArtwork();
 
         window.addEventListener("hashchange", onHashChange);
+        // Playnite Bridge switches a game's version in place (replaceState, then viewshow): no hashchange.
+        document.addEventListener("viewshow", rememberDetailsPage, true);
         window.addEventListener("beforeunload", resetImages);
 
         if (!observer) {
@@ -2206,6 +2208,7 @@
         }
 
         window.removeEventListener("hashchange", onHashChange);
+        document.removeEventListener("viewshow", rememberDetailsPage, true);
         window.removeEventListener("beforeunload", resetImages);
 
         removeImages();
