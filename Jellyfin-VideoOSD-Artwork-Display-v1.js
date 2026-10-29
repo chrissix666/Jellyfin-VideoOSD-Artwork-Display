@@ -1803,7 +1803,8 @@
     // page; the game is a virtual Movie item. A playing item counts as a
     // game's video when the detail page it was started from is such a game
     // and that game's LocalTrailers / SpecialFeatures list holds it (both
-    // answered by Playnite Bridge). Without the plugin no item matches.
+    // answered by Playnite Bridge); a Steam video of the game is in neither list, its game comes from
+    // PlayniteBridge/extras/{id}/game. Without the plugin no item matches.
     let lastDetailsId = null;
     const playniteGames = {};
 
@@ -1822,7 +1823,14 @@
             if (owner && owner.Type === "Movie" && owner.LocationType === "Virtual") {
                 const list = await ApiClient.getJSON(ApiClient.getUrl(
                     `Items/${owner.Id}/${item.Type === "Trailer" ? "LocalTrailers" : "SpecialFeatures"}`, { userId: userId }));
-                if (Array.isArray(list) && list.some(x => x && x.Id === item.Id)) game = owner;
+                if (Array.isArray(list) && list.some(x => x && x.Id === item.Id)) {
+                    game = owner;
+                } else if (item.Type === "Video") {
+                    // A Steam video of the game is in neither list; Playnite Bridge names its game (asked only from a game's page).
+                    const answer = await ApiClient.getJSON(ApiClient.getUrl(`PlayniteBridge/extras/${item.Id}/game`));
+                    const gameId = answer && answer.id;
+                    if (gameId) game = gameId === owner.Id ? owner : await ApiClient.getItem(userId, gameId);
+                }
             }
         } catch (e) {
             game = null;
