@@ -1839,6 +1839,23 @@
         return game;
     };
 
+    // Playnite Bridge's "Settings From" for the player artwork: "PlayniteBridge" = it draws the games
+    // itself and we draw nothing for them; missing field (older Bridge) = we draw. Kept 30 s.
+    let bridgeSource = null;
+    let bridgeSourceTime = 0;
+    const bridgeDrawsGames = async () => {
+        if (Date.now() - bridgeSourceTime > 30000) {
+            try {
+                const c = await ApiClient.getJSON(ApiClient.getUrl("PlayniteBridge/ClientConfiguration"));
+                bridgeSource = c && c.PlayerArtworkSource;
+            } catch (e) {
+                bridgeSource = null;
+            }
+            bridgeSourceTime = Date.now();
+        }
+        return bridgeSource === "PlayniteBridge";
+    };
+
     const resolveAndLoadArtwork = async itemId => {
         if (!enabled || !window.ApiClient || !itemId) return;
         const gen = ++resolveGen;
@@ -1853,6 +1870,11 @@
             if (!enabled || gen !== resolveGen) return;
             const kind = game ? "game" : getKindFromItem(item);
             activeKind = kind;
+            if (game && await bridgeDrawsGames()) {
+                if (gen === resolveGen) hideAllKindsExcept(null);
+                return;
+            }
+            if (!enabled || gen !== resolveGen) return;
 
             const P = CONFIG[kind];
             const imgs = IMAGES[kind];
