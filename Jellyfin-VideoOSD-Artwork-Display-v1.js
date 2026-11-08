@@ -169,6 +169,30 @@
             },
 
             // ---------------------------
+            // Movie CharacterArt configuration
+            // ---------------------------
+            // Movies, TV shows and videos: found by the VideoOSD Tweaks & Candy plugin
+            // (script only shows none); games: from Playnite Bridge.
+            characterArt: {
+                enabled: false, // true = show characterart, false = hide characterart
+                movieSourceMode: "default", // default | file | parent | grandparent
+                horizontal: "left", // "left" | "right" | "center"
+                vertical: "bottom", // "top" | "bottom" | "center"
+                offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+                offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
+                offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
+                maxHeight: "26vh", // maximum height of the characterart (must have a value, not optional)
+                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                multiImage: false, // true = cycle through all images, false = only the first
+                cycleTimeMs: 5000, // time each image is shown (at least 1000)
+                fadeTimeMs: 1000, // crossfade between two images (at most the cycle time)
+                orderMode: "Shuffle", // "Sequential" | "Shuffle"
+                randomStart: false, // Sequential only: start at a random image
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+            },
+
+            // ---------------------------
             // Movie Disc configuration
             // ---------------------------
             disc: {
@@ -453,6 +477,30 @@
                 maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
                 fallbackToLogo: false, // use logo as fallback if no clearart is available
                 zIndex: "7" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+            },
+
+            // ---------------------------
+            // Episode CharacterArt configuration
+            // ---------------------------
+            // Movies, TV shows and videos: found by the VideoOSD Tweaks & Candy plugin
+            // (script only shows none); games: from Playnite Bridge.
+            characterArt: {
+                enabled: false, // true = show characterart, false = hide characterart
+                tvShowSourceMode: "default", // default | episode | season | series
+                horizontal: "left", // "left" | "right" | "center"
+                vertical: "bottom", // "top" | "bottom" | "center"
+                offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+                offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
+                offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
+                maxHeight: "26vh", // maximum height of the characterart (must have a value, not optional)
+                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                multiImage: false, // true = cycle through all images, false = only the first
+                cycleTimeMs: 5000, // time each image is shown (at least 1000)
+                fadeTimeMs: 1000, // crossfade between two images (at most the cycle time)
+                orderMode: "Shuffle", // "Sequential" | "Shuffle"
+                randomStart: false, // Sequential only: start at a random image
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
             },
 
             // ---------------------------
@@ -829,6 +877,30 @@
             },
 
             // ---------------------------
+            // Video CharacterArt configuration
+            // ---------------------------
+            // Movies, TV shows and videos: found by the VideoOSD Tweaks & Candy plugin
+            // (script only shows none); games: from Playnite Bridge.
+            characterArt: {
+                enabled: false, // true = show characterart, false = hide characterart
+                videoSourceMode: "default", // default | file | parent | grandparent
+                horizontal: "left", // "left" | "right" | "center"
+                vertical: "bottom", // "top" | "bottom" | "center"
+                offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+                offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+                offsetTop: "6vh", // distance from top edge if vertical="top"
+                offsetBottom: "9.8vh", // distance from bottom edge if vertical="bottom"
+                maxHeight: "26vh", // maximum height of the characterart (must have a value, not optional)
+                maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+                multiImage: false, // true = cycle through all images, false = only the first
+                cycleTimeMs: 5000, // time each image is shown (at least 1000)
+                fadeTimeMs: 1000, // crossfade between two images (at most the cycle time)
+                orderMode: "Shuffle", // "Sequential" | "Shuffle"
+                randomStart: false, // Sequential only: start at a random image
+                zIndex: "3" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+            },
+
+            // ---------------------------
             // Video Disc configuration
             // ---------------------------
             disc: {
@@ -1082,6 +1154,120 @@
     // "parent" = the game (see findPlayniteGame).
     CONFIG.game = JSON.parse(JSON.stringify(CONFIG.video));
 
+    // Pictures only Playnite Bridge has, read from the game's folder
+    // (PlayniteBridge/games/{id}/pictures/<key in lower case>), never from
+    // the playing video. Admin page order: after Banner, before the Backdrops.
+    const GAME_PICTURE_KEYS = ["icon", "square", "box3D", "boxFront", "boxBack", "boxSpine"];
+
+    // ---------------------------
+    // Game Icon configuration
+    // ---------------------------
+    CONFIG.game.icon = {
+        enabled: false, // true = show icon, false = hide icon
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "right", // "left" | "right" | "center"
+        vertical: "top", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "9.3vh", // maximum height of the icon (must have a value, not optional)
+        maxWidth: "5.23vw", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // ---------------------------
+    // Game Square configuration
+    // ---------------------------
+    CONFIG.game.square = {
+        enabled: false, // true = show square, false = hide square
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "right", // "left" | "right" | "center"
+        vertical: "top", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "9.3vh", // maximum height of the square (must have a value, not optional)
+        maxWidth: "5.23vw", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "5" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // ---------------------------
+    // Game Box 3D configuration
+    // ---------------------------
+    CONFIG.game.box3D = {
+        enabled: false, // true = show box 3d, false = hide box 3d
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "left", // "left" | "right" | "center"
+        vertical: "bottom", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "27vh", // maximum height of the box 3d (must have a value, not optional)
+        maxWidth: "13.5vw", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // ---------------------------
+    // Game Box Front configuration
+    // ---------------------------
+    CONFIG.game.boxFront = {
+        enabled: false, // true = show box front, false = hide box front
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "left", // "left" | "right" | "center"
+        vertical: "bottom", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "27vh", // maximum height of the box front (must have a value, not optional)
+        maxWidth: "10.93vw", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // ---------------------------
+    // Game Box Back configuration
+    // ---------------------------
+    CONFIG.game.boxBack = {
+        enabled: false, // true = show box back, false = hide box back
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "left", // "left" | "right" | "center"
+        vertical: "bottom", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "27vh", // maximum height of the box back (must have a value, not optional)
+        maxWidth: "10.93vw", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // ---------------------------
+    // Game Box Spine configuration
+    // ---------------------------
+    CONFIG.game.boxSpine = {
+        enabled: false, // true = show box spine, false = hide box spine
+        videoSourceMode: "default", // default | file | parent (only the game has this picture, "file" shows none)
+        horizontal: "left", // "left" | "right" | "center"
+        vertical: "bottom", // "top" | "bottom" | "center"
+        offsetLeft: "3.8vw", // distance from left edge if horizontal="left"
+        offsetRight: "4.5vw", // distance from right edge if horizontal="right"
+        offsetTop: "6vh", // distance from top edge if vertical="top"
+        offsetBottom: "9.4vh", // distance from bottom edge if vertical="bottom"
+        maxHeight: "27vh", // maximum height of the box spine (must have a value, not optional)
+        maxWidth: "auto", // auto or optional maximum width (e.g. "20vw")
+        zIndex: "4" // stacking layer (use only 1–9 to place the objects relative to each other in fore- or background)
+    };
+
+    // Several discs of a game: stacked behind the first one, each moved by
+    // DISC_STACK_REM away from the edge the disc sits at.
+    CONFIG.game.disc.showMultiple = false; // true = stack all discs of the game (Playnite Bridge)
+    CONFIG.game.disc.maxCount = 6; // most discs in the stack (1–20)
+    const DISC_STACK_REM = 1.5;
+    const DISC_STACK_LIMIT = 20;
+
     // ===============================
     // STATE VARIABLES
     // ===============================
@@ -1098,7 +1284,7 @@
         movie: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
         episode: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
         video: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null },
-        game: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null }
+        game: { clearartState: "none", discAngle: 0, lastFrameTime: null, discAnimationFrame: null, caTimer: null }
     };
 
     let previousItemId = null;
@@ -1519,7 +1705,135 @@
                     IMAGES[kind][key] = createImageElement(P[key]);
                 }
             }
+
+            // Two elements for the crossfade; the one marked inactive stays hidden.
+            if (!IMAGES[kind].characterArt && P.characterArt && P.characterArt.enabled) {
+                IMAGES[kind].characterArt = createImageElement(P.characterArt);
+                IMAGES[kind].characterArtB = createImageElement(P.characterArt);
+                IMAGES[kind].characterArtB.dataset.aoaInactive = "1";
+            }
+
+            if (kind === "game") {
+                GAME_PICTURE_KEYS.forEach(key => {
+                    if (!IMAGES.game[key] && P[key] && P[key].enabled) IMAGES.game[key] = createImageElement(P[key]);
+                });
+            }
         });
+    };
+
+    // Disc n (1-based, behind the first) of the game's stack; created on
+    // demand and placed before the previous one in the DOM, so with the
+    // same z-index the first disc stays in front.
+    const discStackElement = n => {
+        const imgs = IMAGES.game;
+        const key = "discStack" + n;
+        if (!imgs[key]) {
+            const el = createImageElement(CONFIG.game.disc, true);
+            const front = n === 1 ? imgs.disc : imgs["discStack" + (n - 1)];
+            if (front && front.parentNode) front.parentNode.insertBefore(el, front);
+            el.dataset.aoaStack = String(n);
+            imgs[key] = el;
+        }
+        return imgs[key];
+    };
+
+    // Transform of a disc: centring, the stack shift of disc n (0 = front),
+    // rotation.
+    const discTransform = (cfg, n, angle) => {
+        const shift = n * DISC_STACK_REM * (cfg.vertical === "top" ? 1 : -1);
+        return (cfg.horizontal === "center" ? "translateX(-50%) " : "") +
+            (cfg.vertical === "center" ? "translateY(-50%) " : "") +
+            (n ? "translateY(" + shift + "rem) " : "") +
+            "rotate(" + angle + "deg)";
+    };
+
+    // Order of n CharacterArt images (indexes into the naturally sorted list).
+    const characterArtOrder = (n, cfg) => {
+        const idx = [];
+        for (let i = 0; i < n; i++) idx.push(i);
+        if (cfg.orderMode === "Shuffle") {
+            for (let i = n - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const t = idx[i];
+                idx[i] = idx[j];
+                idx[j] = t;
+            }
+        } else if (cfg.randomStart) {
+            const start = Math.floor(Math.random() * n);
+            return idx.slice(start).concat(idx.slice(0, start));
+        }
+        return idx;
+    };
+
+    // Shows the CharacterArt images (URLs in natural order): the first
+    // only, or a cycle with a crossfade between the two elements.
+    const startCharacterArt = (kind, urls, gen) => {
+        const P = CONFIG[kind];
+        const cfg = P.characterArt;
+        const imgs = IMAGES[kind];
+        const st = STATES[kind];
+        if (!urls.length || !imgs.characterArt) return;
+        if (!cfg.multiImage || urls.length < 2 || !imgs.characterArtB) {
+            loadUrl(imgs.characterArt, urls[0]);
+            return;
+        }
+        const cycle = Math.max(1000, parseInt(cfg.cycleTimeMs, 10) || 5000);
+        const fade = Math.min(cycle, Math.max(0, parseInt(cfg.fadeTimeMs, 10) || 0));
+        let seq = characterArtOrder(urls.length, cfg);
+        let pos = 0;
+        let front = imgs.characterArt;
+        let back = imgs.characterArtB;
+        loadUrl(front, urls[seq[0]]);
+
+        const step = () => {
+            st.caTimer = null;
+            if (!enabled || gen !== resolveGen) return;
+            pos++;
+            if (pos >= seq.length) {
+                // Shuffle: a new pass that never starts with the image just
+                // shown; Sequential keeps its (random) start for every pass.
+                if (cfg.orderMode === "Shuffle") {
+                    const last = seq[seq.length - 1];
+                    seq = characterArtOrder(urls.length, cfg);
+                    if (seq[0] === last) {
+                        seq[0] = seq[1];
+                        seq[1] = last;
+                    }
+                }
+                pos = 0;
+            }
+            const url = urls[seq[pos]];
+            const test = new Image();
+            test.onload = () => {
+                if (!enabled || gen !== resolveGen) return;
+                const visible = isOSDVisible();
+                const t = "opacity " + fade + "ms ease";
+                back.src = url;
+                back.style.transition = t;
+                front.style.transition = t;
+                back.dataset.aoaInactive = "0";
+                front.dataset.aoaInactive = "1";
+                back.style.display = "block";
+                void back.offsetWidth; // start the fade from opacity 0
+                back.style.opacity = visible ? "1" : "0";
+                front.style.opacity = "0";
+                const a = front;
+                const b = back;
+                setTimeout(() => {
+                    a.style.transition = "opacity 0.25s ease";
+                    b.style.transition = "opacity 0.25s ease";
+                }, fade + 50);
+                front = b;
+                back = a;
+                st.caTimer = setTimeout(step, cycle);
+            };
+            test.onerror = () => {
+                if (!enabled || gen !== resolveGen) return;
+                st.caTimer = setTimeout(step, cycle);
+            };
+            test.src = url;
+        };
+        st.caTimer = setTimeout(step, cycle);
     };
 
     // ===============================
@@ -1587,6 +1901,12 @@
                 cancelAnimationFrame(st.discAnimationFrame);
                 st.discAnimationFrame = null;
             }
+            if (st && st.caTimer) {
+                clearTimeout(st.caTimer);
+                st.caTimer = null;
+            }
+            if (imgs.characterArt) imgs.characterArt.dataset.aoaInactive = "0";
+            if (imgs.characterArtB) imgs.characterArtB.dataset.aoaInactive = "1";
             if (st) {
                 st.discAngle = 0;
                 st.lastFrameTime = null;
@@ -1643,6 +1963,56 @@
         const url = (window.ApiClient && typeof ApiClient.getUrl === "function")
             ? ApiClient.getUrl(`Items/${itemId}/Images/${type}`, { maxHeight: 400, ts: Date.now() })
             : `/Items/${itemId}/Images/${type}?maxHeight=400&ts=${Date.now()}`;
+        loadUrl(el, url, cb);
+    };
+
+    // URL of a plugin route (base URL aware); null without ApiClient.
+    const pluginUrl = (path, query) =>
+        (window.ApiClient && typeof ApiClient.getUrl === "function") ? ApiClient.getUrl(path, query) : null;
+
+    // A JSON answer of a plugin route; null on 204, an error or no plugin.
+    const pluginJson = async path => {
+        try {
+            const url = pluginUrl(path);
+            return url ? await ApiClient.getJSON(url) : null;
+        } catch (e) {
+            return null;
+        }
+    };
+
+    // A Playnite Bridge list [{ Index, Tag }] (characterart, discs) as
+    // [{ index, tag }]; [] without one.
+    const bridgeList = async (gameId, route) => {
+        const list = await pluginJson(`PlayniteBridge/games/${gameId}/${route}`);
+        return Array.isArray(list)
+            ? list.filter(e => e && e.Index !== undefined && e.Index !== null).map(e => ({ index: e.Index, tag: e.Tag }))
+            : [];
+    };
+
+    const bridgeUrl = (gameId, route, tag) => {
+        const q = { ts: Date.now() };
+        if (tag) q.tag = tag;
+        return pluginUrl(`PlayniteBridge/games/${gameId}/${route}`, q);
+    };
+
+    // CharacterArt image URLs of one item in their order: from Playnite
+    // Bridge for the game, else from this plugin's own route (the item's
+    // folder, ArtworkPlus' naming; CharacterartController.cs).
+    const characterArtUrls = async (it, game) => {
+        if (game && it === game) {
+            // player=1: the list and the files independent of the Bridge's game page settings.
+            return (await bridgeList(game.Id, "characterart?player=1"))
+                .map(e => pluginUrl(`PlayniteBridge/games/${game.Id}/characterart/${e.index}`, { tag: e.tag || "", player: 1, ts: Date.now() }));
+        }
+        const list = await pluginJson(`VideoOSDTweaksCandy/Characterart/${it.Id}`);
+        if (!Array.isArray(list)) return [];
+        return list
+            .filter(e => e && e.Index !== undefined && e.Index !== null)
+            .map(e => pluginUrl(`VideoOSDTweaksCandy/Characterart/${it.Id}/${e.Index}`, { tag: e.Tag || "" }));
+    };
+
+    const loadUrl = (el, url, cb) => {
+        if (!el || !url) return;
         const gen = resolveGen;
         const test = new Image();
 
@@ -1948,9 +2318,47 @@
                                 st.discAnimationFrame = requestAnimationFrame(rotateDisc);
                             }
                         });
+                        // Further discs only from the game's own folder (index 0 = the disc above).
+                        if (game && it === game && P.disc.showMultiple) {
+                            const max = Math.max(1, Math.min(DISC_STACK_LIMIT, parseInt(P.disc.maxCount, 10) || 1));
+                            bridgeList(game.Id, "discs").then(list => {
+                                if (!enabled || gen !== resolveGen) return;
+                                list.slice(1, max).forEach((d, n) => {
+                                    loadUrl(discStackElement(n + 1), bridgeUrl(game.Id, "discs/" + d.index, d.tag));
+                                });
+                            });
+                        }
                         break;
                     }
                 }
+            }
+
+            // CharacterArt: the first item of the source chain that has any.
+            if (P.characterArt && P.characterArt.enabled && imgs.characterArt) {
+                const caChain = getScopedChain(kind, baseChain, P.characterArt);
+                (async () => {
+                    for (let i = 0; i < caChain.length; i++) {
+                        if (!caChain[i]) continue;
+                        const urls = await characterArtUrls(caChain[i], game);
+                        if (!enabled || gen !== resolveGen) return;
+                        if (urls.length) {
+                            startCharacterArt(kind, urls, gen);
+                            return;
+                        }
+                    }
+                })();
+            }
+
+            // Playnite Bridge pictures: only the game has them, so source
+            // "file" (the video) shows none.
+            if (game) {
+                GAME_PICTURE_KEYS.forEach(key => {
+                    const cfg = P[key];
+                    const img = imgs[key];
+                    if (!cfg || !cfg.enabled || !img) return;
+                    if (getScopedChain(kind, baseChain, cfg).indexOf(game) === -1) return;
+                    loadUrl(img, bridgeUrl(game.Id, "pictures/" + key.toLowerCase()));
+                });
             }
 
             const resolveGeneric = (cfg, img, type) => {
@@ -2043,10 +2451,10 @@
             st.discAngle += (360 / (P.disc.rotationSpeed * 1000)) * d;
             st.discAngle %= 360;
 
-            imgs.disc.style.transform =
-                (P.disc.horizontal === "center" ? "translateX(-50%) " : "") +
-                (P.disc.vertical === "center" ? "translateY(-50%) " : "") +
-                "rotate(" + st.discAngle + "deg)";
+            imgs.disc.style.transform = discTransform(P.disc, 0, st.discAngle);
+            for (let n = 1; imgs["discStack" + n]; n++) {
+                if (imgs["discStack" + n].src) imgs["discStack" + n].style.transform = discTransform(P.disc, n, st.discAngle);
+            }
 
             st.lastFrameTime = ts;
         }
@@ -2111,8 +2519,18 @@
             [imgs.backdrop6, P.backdrop6],
             [imgs.backdrop7, P.backdrop7],
             [imgs.backdrop8, P.backdrop8],
-            [imgs.backdrop9, P.backdrop9]
+            [imgs.backdrop9, P.backdrop9],
+            [imgs.characterArt, P.characterArt],
+            [imgs.characterArtB, P.characterArt]
         ];
+        if (currentKind === "game") {
+            GAME_PICTURE_KEYS.forEach(key => positioned.push([imgs[key], P[key]]));
+            for (let n = 1; imgs["discStack" + n]; n++) {
+                const el = imgs["discStack" + n];
+                if (P.disc && P.disc.showMultiple && el.getAttribute("src")) positioned.push([el, P.disc]);
+                else el.style.display = "none";
+            }
+        }
 
         positioned.forEach(pair => {
             const img = pair[0];
@@ -2142,10 +2560,17 @@
                 aoaApply(img, cfg);
             }
 
-            img.style.transform =
-                (cfg.horizontal === "center" ? "translateX(-50%) " : "") +
-                (cfg.vertical === "center" ? "translateY(-50%) " : "") +
-                (img === imgs.disc ? "rotate(" + st.discAngle + "deg)" : "");
+            const stackN = img.dataset.aoaStack ? parseInt(img.dataset.aoaStack, 10) : 0;
+            img.style.transform = (img === imgs.disc || stackN)
+                ? discTransform(cfg, stackN, st.discAngle)
+                : (cfg.horizontal === "center" ? "translateX(-50%) " : "") +
+                    (cfg.vertical === "center" ? "translateY(-50%) " : "");
+
+            // The hidden half of the CharacterArt crossfade.
+            if (img.dataset.aoaInactive === "1") {
+                img.style.opacity = "0";
+                return;
+            }
 
             img.style.display = "block";
             img.style.opacity = visible ? "1" : "0";
