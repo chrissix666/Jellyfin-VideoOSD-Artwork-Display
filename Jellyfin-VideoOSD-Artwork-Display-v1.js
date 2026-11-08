@@ -6,7 +6,7 @@
     if (window.JellyfinVideoOSDArtworkLoaded) return;
     window.JellyfinVideoOSDArtworkLoaded = true;
 
-    // ---- PLUGIN ADAPTER: config source, retrofit for VideoOSD Tweaks and Candy ----
+    // ---- PLUGIN ADAPTER: config source (VideoOSD Tweaks and Candy plugin) ----
 
     async function fetchPluginConfig() {
         const maxAttempts = 120;
@@ -20,7 +20,7 @@
             if (window.ApiClient && typeof ApiClient.getJSON === 'function') {
                 // Not logged in yet (e.g. still on the login page): every
                 // request would only fail with 401, so wait without using up
-                // an attempt (the whole budget used to run out right there).
+                // an attempt.
                 if (typeof ApiClient.accessToken === 'function' && !ApiClient.accessToken()) {
                     attempt--;
                     await new Promise(function (resolve) { setTimeout(resolve, delayMs); });
@@ -39,7 +39,7 @@
                     if (err && (err.status === 403 || err.status === 404)) return null;
                     // Server error (5xx), network error or empty answer: at most 3
                     // retries, 0.5 / 1 / 2 s apart, then the defaults until the next
-                    // fetch (this used to send up to 120 requests in 30 s).
+                    // fetch.
                     if (++failures > 3) return null;
                     await new Promise(function (resolve) { setTimeout(resolve, delayMs * Math.pow(2, failures)); });
                     continue;
@@ -50,18 +50,11 @@
         return null;
     }
 
-    // Generic, mechanical reconstruction of CONFIG from the flat plugin
-    // config object, deliberately NOT 599 individual hand-written
-    // assignment lines. The property-name pattern is fully mechanical
-    // (ContentType + ArtworkType + FieldName, PascalCase, e.g.
-    // "MovieLogoEnabled", "EpisodeBackdrop3ZIndex"), the exact same
-    // pattern used to generate the 599 PluginConfiguration.cs properties
-    // in the first place, so this function derives the right property
-    // name to look up for every single field in CONFIG automatically,
-    // rather than needing 599 lines that could each individually contain
-    // a typo. Verified separately (see build status notes) by simulating
-    // every property name this function would ever look up and confirming
-    // each one matches a real PluginConfiguration.cs property exactly.
+    // Fills CONFIG from the flat plugin config object. Every property name
+    // follows one pattern (ContentType + ArtworkType + FieldName, PascalCase,
+    // e.g. "MovieLogoEnabled", "EpisodeBackdrop3ZIndex"), the same pattern
+    // the PluginConfiguration.cs properties use, so the name to look up is
+    // derived from each CONFIG field instead of being mapped by hand.
     function pascalCase(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
@@ -94,11 +87,9 @@
 
                 Object.keys(artworkObj).forEach(function (field) {
                     // The 3 source-mode field names (movieSourceMode /
-                    // tvShowSourceMode / videoSourceMode) were all
-                    // collapsed to the single, non-redundant "SourceMode"
-                    // when the C# property names were generated (see the
-                    // concept/build-status notes), undo that same
-                    // collapsing here so the lookup key matches.
+                    // tvShowSourceMode / videoSourceMode) all map to the
+                    // single C# property suffix "SourceMode", so the
+                    // lookup key uses that name.
                     let fieldForName = field;
                     if (field === "movieSourceMode" || field === "tvShowSourceMode" || field === "videoSourceMode") {
                         fieldForName = "sourceMode";
@@ -1850,8 +1841,8 @@
 
     // Any OSD header counts, not only the first: Jellyfin 12.1's modern
     // layout has two (the hidden legacy header first in the DOM, then the
-    // MUI header box). 10.10.7 has exactly one, so it behaves as before,
-    // including "Up next", where only the header is shown, not the bar.
+    // MUI header box). 10.10.7 has exactly one, so this also covers
+    // "Up next" there, where only the header is shown, not the bar.
     const isOSDVisible = () => {
         const headerShown = Array.prototype.some.call(
             document.querySelectorAll(".osdHeader"),
@@ -2150,12 +2141,11 @@
     // ===============================
     // RESOLVE & LOAD ARTWORK
     // ===============================
-    // FIX: while one resolve was still waiting on its API calls, a quick
-    // item change (e.g. pressing "next" twice) was dropped entirely by the
-    // old "resolving" early return, and the first resolve then filled the
-    // images with the PREVIOUS item's artwork. Every resolve now gets its
-    // own generation number; a superseded one stops after each await, and
-    // its pending image loads are ignored (see loadImage()).
+    // A quick item change (e.g. pressing "next" twice) can start a new
+    // resolve while the previous one is still waiting on its API calls.
+    // Every resolve gets its own generation number; a superseded one stops
+    // after each await and its pending image loads are ignored (see
+    // loadImage()), so an older item's artwork never fills the images.
     // A hash change resets the images, which also cancels a pending
     // resolve (see resolveGen); forget the item too, so the next update
     // resolves it again instead of leaving it without artwork.
@@ -2548,10 +2538,10 @@
                 }
             }
 
-            // Z-index was only set when the element was created, which
-            // happens with the built-in defaults before the plugin config
-            // arrives, so configured values never applied to the
-            // default-enabled types (logo, clearart, disc).
+            // Set on every update, not only when the element is created:
+            // creation happens with the built-in defaults before the plugin
+            // config arrives, so the default-enabled types (logo, clearart,
+            // disc) would otherwise keep the default z-index.
             img.style.zIndex = String(cfg.zIndex || "2");
 
             if (img === imgs.clearart && st.clearartState === "fallback" && P.logo) {
@@ -2580,16 +2570,10 @@
     // ===============================
     // OSD Z-INDEX FIXES
     // ===============================
-    // Per the JS compatibility strategy decision in the concept document:
-    // this global CSS side effect (touches shared, native Jellyfin classes
-    // like .videoOsdBottom and .skinHeader, not just this mod's own
-    // elements) is meant to go through a clearly named, standalone adapter
-    // function rather than being applied ad hoc inline, so its mechanism
-    // could be changed later (e.g. coordinated through the shared Core
-    // script instead of injected independently) without having to touch
-    // enable()/disable() below. This function already was exactly that
-    // shape before this retrofit, no functional change here, only this
-    // clarifying note.
+    // Global CSS side effect: touches shared, native Jellyfin classes like
+    // .videoOsdBottom and .skinHeader, not just this mod's own elements.
+    // Kept in its own function so the mechanism can change (e.g. move to
+    // the shared Core script) without touching enable()/disable() below.
     const injectZIndexFixes = () => {
         const id = "osd-zindex-fixes";
         if (document.getElementById(id)) return;
@@ -2622,7 +2606,7 @@
         if (enabled) return;
 
         enabled = true;
-        // Signal for other plugins (Playnite Bridge contract): this script draws the OSD artwork.
+        // Signal for other plugins (e.g. Playnite Bridge): this script draws the OSD artwork.
         document.documentElement.setAttribute("data-jvosd-artwork", "");
 
         aoaStart();
@@ -2765,8 +2749,8 @@
 
     // ---- PLUGIN ADAPTER: apply fetched config once it arrives ----
     // Fired in parallel with the synchronous startup above, not awaited
-    // there, so standalone (no-plugin) behavior starts exactly as fast as
-    // before. If a plugin config does arrive after local defaults were
+    // there, so standalone (no-plugin) use starts without delay. If a
+    // plugin config does arrive after local defaults were
     // already used to render artwork, a full re-resolve is forced
     // (resetImages() + ensureImages() + clearing previousItemId so
     // updateArtwork() treats the current item as "changed" and re-fetches
